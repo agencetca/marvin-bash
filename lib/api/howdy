@@ -1,0 +1,6 @@
+
+function api.howdy {
+    
+    echo "i am howdy"
+
+}

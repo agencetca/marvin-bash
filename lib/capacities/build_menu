@@ -1,8 +1,9 @@
 
-function capacities.buildfile_menu {
+function capacities.build_menu {
     
-
-MSG="$1" || "Please select a file:"
+CBK="$1"
+MSG="$2" || "Please select an item:"
+shift
 shift
 
 prompt="$MSG "
@@ -14,8 +15,13 @@ prompt="$MSG "
          break
  
      elif (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
-         capacities.execute "$opt"
-         break
+        $CBK "$opt"
+        #if [ ! -z "$CBK" ]; then
+        #    $CBK "$opt"
+        #else
+        #    capacities.sorry "I do not know yet how to use this functionnality..."
+        #fi
+        break
  
      else
          echo "Invalid option. Try another one."

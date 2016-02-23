@@ -1,0 +1,6 @@
+
+function capacities.set_info {
+
+    ./redis-bash/redis-bash-cli -h localhost SET "$1" "$2" >/dev/null
+
+}

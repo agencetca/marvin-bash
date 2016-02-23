@@ -1,0 +1,13 @@
+function capacities.yes_no {
+
+    capacities.ask "$1 [y/N] "
+    case "$REPLY" in
+    [yY][eE][sS]|[yY]) 
+	    REPLY="yes"
+    ;;
+    *)
+	    REPLY="no"
+    ;;
+    esac
+
+}

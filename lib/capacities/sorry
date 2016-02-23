@@ -1,0 +1,7 @@
+
+function capacities.sorry {
+    
+    REASON="$1"
+    capacities.tell "I am so sorry $NAME, $REASON"
+ 
+}

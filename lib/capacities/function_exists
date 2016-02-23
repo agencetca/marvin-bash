@@ -1,0 +1,10 @@
+
+function capacities.function_exists {
+    
+    if [ ! -z $(declare -F "api.$1" ) ]; then
+        echo true
+    else
+        echo false
+    fi
+  
+}

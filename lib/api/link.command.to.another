@@ -1,0 +1,6 @@
+
+function api.link.command.to.another {
+
+    capacities.tell "Ready to link"
+
+}

@@ -1,0 +1,6 @@
+
+function api.salutation {
+
+    echo "hello dude"
+
+}

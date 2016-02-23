@@ -12,38 +12,24 @@ git clone https://github.com/caquino/redis-bash.git redis-bash
 #make marvin
 echo '#!/bin/bash
 
-LIB="../lib"
-COMMAND="$@"
-NAME=$(./redis-bash/redis-bash-cli -h localhost GET username)
-
 function traverse {
    for f in $1/*
    do
        if [ -f $f ]; then
-           source $f
+           cat $f | grep "function " | awk "{print $2}" | xargs -i bash -c "source $f && export -f {} 2>/dev/null"
        elif [ -d $f ]; then
            traverse $f
        fi
    done
 }
 
+LIB="../lib"
 traverse $LIB
 
-if [[ $COMMAND =~ "hello" ]]
-then
-    capacities.tell "hey!"
-    capacities.ask "What is your name? "
-    NAME="$REPLY"
-    SAVE=$(./redis-bash/redis-bash-cli -h localhost SET username $NAME)
-    capacities.tell "Ok, $NAME"
-elif [[ $COMMAND =~ "help" ]]
-then
-    capacities.list-api
-    capacities.indic "Done"
-else
-    capacities.tell "Sorry $NAME, I didnt get it"
-fi
+COMMAND="$@"
+NAME=$(capacities.get_info "user.name")
 
+capacities.understand "$COMMAND"
 
 ' > brain
 chmod +x brain
