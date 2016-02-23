@@ -28,7 +28,7 @@ else
         capacities.tell "Sorry $NAME, I didn't get it..."
         capacities.yes_no "Would like to manually help me to improve?"
         if [ "$REPLY" == "yes" ]; then
-            capacities.build_menu "capacities.execute" "What should I do?" "learn.new.command" "link.command.to.another"
+            capacities.build_menu "capacities.execute" "What should I do?" "learn.new.command $COMMAND" "link.command.to.another"
         fi
     fi
 fi
