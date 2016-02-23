@@ -1,2 +1,3 @@
- #!/bin/bash
-cd core && ./init && rm ../init
+#!/bin/bash
+cd core && ./init && rm -f ../init
+
