@@ -1,0 +1,5 @@
+ function capacities.parole.indic {
+     if [ ! -z "$1" ]; then
+         echo -e "\e[34m"$1"\e[0m"
+     fi
+ }

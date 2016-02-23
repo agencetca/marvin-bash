@@ -1,0 +1,8 @@
+
+function commands.list-actions {
+    
+    capacities.parole.tell "Yep! I can help!"
+    LIST=$(capacities.assemble.agregate ../lib/commands)
+    capacities.represent.buildfile_menu "Choose something to do:" $LIST
+    
+}

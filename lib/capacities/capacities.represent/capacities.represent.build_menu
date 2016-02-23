@@ -1,0 +1,25 @@
+
+function capacities.represent.buildfile_menu {
+    
+
+MSG="$1" || "Please select a file:"
+shift
+
+prompt="$MSG "
+ options=( "$@" )
+ 
+ PS3="$prompt "
+ select opt in "${options[@]}" "abort" ; do
+     if (( REPLY == 1 + ${#options[@]} )) ; then
+         break
+ 
+     elif (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
+         capacities.act.execute "$opt"
+         break
+ 
+     else
+         echo "Invalid option. Try another one."
+     fi
+ done
+    
+}

@@ -1,0 +1,17 @@
+ function capacities.assemble.agregate {
+     for f in $1/*
+     do
+         if [ "$(basename $f | sed s#commands.##)" != "list-actions" ]; then
+             if [ -f $f ]; then
+                PACK="$(basename $f | sed s#commands.##) $PACK"
+             elif [ -d $f ]; then
+                capacities.assemble.agregate $f false
+             fi
+         fi
+     done
+     if [ -z "$2" ]; then
+         echo "$PACK"
+     fi
+ }
+
+

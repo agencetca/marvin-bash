@@ -1,0 +1,37 @@
+#!/bin/bash
+
+LIB="../lib"
+COMMAND="$@"
+NAME=$(./redis-bash/redis-bash-cli -h localhost GET username)
+
+function traverse {
+   for f in $1/*
+   do
+       if [ -f $f ]; then
+           source $f
+       elif [ -d $f ]; then
+           traverse $f
+       fi
+   done
+}
+
+traverse $LIB
+
+if [[ $COMMAND =~ "hello" ]]
+then
+    capacities.parole.tell "hey!"
+    read -p "What is your name? "
+    NAME="$REPLY"
+    SAVE=$(./redis-bash/redis-bash-cli -h localhost SET username $NAME)
+    capacities.parole.tell "Ok, $NAME"
+elif [[ $COMMAND =~ "help" ]]
+then
+    commands.list-actions
+elif [[ ! -z $(declare -F "commands.$COMMAND") ]]
+then
+    "commands.$COMMAND"
+else
+    capacities.parole.tell "Sorry, I didn't get it..."
+fi
+
+capacities.parole.indic "Done"

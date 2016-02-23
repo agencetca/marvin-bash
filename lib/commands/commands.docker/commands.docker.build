@@ -1,0 +1,21 @@
+
+function commands.docker.build {
+
+   APPREPO="$1"
+   APPNAME="$2"
+
+   if [ -z "$APPREPO" ] || [ -z "$APPNAME" ]; then
+       echo "Need 2 args : APPREPO && APPNAME"
+       echo "Should test : is tell works here? TODO"
+       break
+   fi
+
+   mkdir -p "$APPREPO/$APPNAME"
+   cd "$APPREPO/$APPNAME"
+   touch Dockerfile
+   sudo bash -c "echo 'FROM docker/whalesay:latest' > Dockerfile"
+   sudo bash -c "echo 'RUN apt-get -y update && apt-get install -y fortunes' >> Dockerfile"
+   sudo bash -c "echo 'CMD /usr/games/fortune -a | cowsay' >> Dockerfile"
+   docker build -t "docker-$APPNAME" .
+}
+
