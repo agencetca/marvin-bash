@@ -1,5 +1,5 @@
 
-function commands.list-actions {
+function list-actions {
     
     capacities.parole.tell "Yep! I can help!"
     LIST=$(capacities.assemble.agregate ../lib/commands)
