@@ -14,7 +14,7 @@ echo '#!/bin/bash
 
 LIB="$(pwd)/lib"
 COMMAND="$@"
-NAME=$(./core/redis-bash/redis-bash-cli -h localhost GET username)
+NAME=$(./redis-bash/redis-bash-cli -h localhost GET username)
 
 function traverse {
    for f in $1/*
@@ -34,7 +34,7 @@ then
     echo "hey!"
     read -p "What is your name? "
     NAME="$REPLY"
-    SAVE=$(./core/redis-bash/redis-bash-cli -h localhost SET username $NAME)
+    SAVE=$(./redis-bash/redis-bash-cli -h localhost SET username $NAME)
     echo "Ok, $NAME"
 elif [[ $COMMAND =~ "help" ]]
 then
