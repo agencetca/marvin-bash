@@ -12,7 +12,7 @@ git clone https://github.com/caquino/redis-bash.git redis-bash
 #make marvin
 echo '#!/bin/bash
 
-LIB="$(pwd)/lib"
+LIB="../lib"
 COMMAND="$@"
 NAME=$(./redis-bash/redis-bash-cli -h localhost GET username)
 
@@ -38,7 +38,7 @@ then
     echo "Ok, $NAME"
 elif [[ $COMMAND =~ "help" ]]
 then
-    commands.list-actions
+    list-actions
 fi' > brain
 chmod +x brain
 
