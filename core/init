@@ -7,7 +7,7 @@
 sudo apt-get install redis-server
 
 #get database bash client
-#git ...
+git clone https://github.com/caquino/redis-bash.git redis-bash
 
 #make marvin
 echo '#!/bin/bash
@@ -40,14 +40,9 @@ elif [[ $COMMAND =~ "help" ]]
 then
     commands.list-actions
 fi' > core/brain
-
 chmod +x core/brain
 
-mv init core/init.bak
-
 echo '#!/bin/bash
-cd core && ./start' > init
-
-chmod +x init
-./init
+cd core && ./start' > ../marvin
+chmod +x ../marvin
 
