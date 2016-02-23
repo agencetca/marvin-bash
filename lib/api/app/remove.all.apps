@@ -1,0 +1,8 @@
+
+function api.app.remove.all.apps {
+    
+    if [ -d "../apps" ]; then
+        rm -rf "../apps"
+    fi
+
+}

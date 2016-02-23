@@ -31,15 +31,21 @@ traverse $LIB
 
 if [[ $COMMAND =~ "hello" ]]
 then
-    echo "hey!"
-    read -p "What is your name? "
+    capacities.tell "hey!"
+    capacities.ask "What is your name? "
     NAME="$REPLY"
     SAVE=$(./redis-bash/redis-bash-cli -h localhost SET username $NAME)
-    echo "Ok, $NAME"
+    capacities.tell "Ok, $NAME"
 elif [[ $COMMAND =~ "help" ]]
 then
-    list-actions
-fi' > brain
+    capacities.list-api
+    capacities.indic "Done"
+else
+    capacities.tell "Sorry $NAME, I didnt get it"
+fi
+
+
+' > brain
 chmod +x brain
 
 echo '#!/bin/bash

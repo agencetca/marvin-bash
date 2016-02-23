@@ -1,4 +1,5 @@
 core/DAEMON*
 core/brain
 core/redis-bash
+core/docker
 marvin

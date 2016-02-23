@@ -1,4 +1,4 @@
- function capacities.parole.ask {
+ function capacities.ask {
      if [ -z $AUTOMODE ]; then
          DONE=false
          if [ ! -z "$2" ]; then

@@ -1,5 +1,5 @@
 
- function capacities.parole.tell {
+ function capacities.tell {
      if [ ! -z "$1" ]; then
  
          if [ -z "$2" ] || [ "$2" != "line" ]; then

@@ -1,15 +1,15 @@
 
-function commands.docker.build {
+function tools.docker.build {
 
    APPREPO="$1"
    APPNAME="$2"
 
    if [ -z "$APPREPO" ] || [ -z "$APPNAME" ]; then
-       echo "Need 2 args : APPREPO && APPNAME"
-       echo "Should test : is tell works here? TODO"
+       capacities.tell "Need 2 args : APPREPO && APPNAME"
        break
    fi
 
+   tools.docker.install
    mkdir -p "$APPREPO/$APPNAME"
    cd "$APPREPO/$APPNAME"
    touch Dockerfile

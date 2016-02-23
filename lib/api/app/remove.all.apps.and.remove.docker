@@ -1,0 +1,6 @@
+
+function api.app.remove.all.apps.and.remove.docker {
+    
+   capacities.execute app.remove.all.apps 
+   capacities.execute app.remove.docker 
+}

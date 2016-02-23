@@ -1,5 +1,5 @@
 
-function commands.docker.uninstall {
+function tools.docker.uninstall {
     sudo service docker stop
     sudo apt-get purge -y --auto-remove docker-engine
     sudo apt-get purge -y --auto-remove apt-transport-https
@@ -8,5 +8,8 @@ function commands.docker.uninstall {
     sudo apt-get update
     sudo apt-get purge lxc-docker*
     sudo apt-get purge docker.io*
-    sudo bash -c 'find / -name "docker" -exec rmfuck -r "{}" \;'
+    #sudo bash -c 'find / -name "docker" -exec rm -r "{}" \;'
+    if [ -d "docker" ]; then
+        rm -rf "docker"
+    fi
 }

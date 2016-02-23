@@ -1,5 +1,5 @@
 
-function capacities.represent.buildfile_menu {
+function capacities.buildfile_menu {
     
 
 MSG="$1" || "Please select a file:"
@@ -14,7 +14,7 @@ prompt="$MSG "
          break
  
      elif (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
-         capacities.act.execute "$opt"
+         capacities.execute "$opt"
          break
  
      else

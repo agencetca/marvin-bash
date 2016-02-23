@@ -1,8 +1,0 @@
-
-function capacities.act.execute {
-    
-        if [ ! -z $(declare -F "commands.$1" ) ]; then
-            commands.$1
-        fi
-    
-}

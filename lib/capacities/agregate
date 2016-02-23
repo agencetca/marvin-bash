@@ -1,0 +1,19 @@
+ function capacities.agregate {
+     KEY=$(basename "$1")
+     for f in $1/*
+     do
+         if [ -f $f ]; then
+            BASENAME=$(basename $f)
+            DIRNAME=$(basename $(dirname $f))
+            FULLNAME=$DIRNAME.$BASENAME
+            PACK="$(echo $FULLNAME | sed 's#$KEY.##') $PACK"
+         elif [ -d $f ]; then
+            capacities.agregate $f false
+         fi
+     done
+     if [ -z "$2" ]; then
+         echo "$PACK"
+     fi
+ }
+
+

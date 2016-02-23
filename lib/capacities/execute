@@ -1,0 +1,8 @@
+
+function capacities.execute {
+    
+        if [ ! -z $(declare -F "api.$1" ) ]; then
+            api.$1
+        fi
+    
+}
