@@ -17,10 +17,17 @@ do
    LIB="../lib"
    traverse $LIB
  
-   capacities.tell "Hello, I'm Marvine, what could I do for you?"
+   NAME="$(capacities.get_info user.name)"
+   if [[ ! "$NAME" -eq -1 ]]; then
+        capacities.tell "Hello $NAME, what could I do for you?"
+   else
+        capacities.tell "Hello, I'm Marvine, what could I do for you?"
+   fi
  
-   while true; do read -p ""
-   ./brain "$REPLY"
+   while true; do read -p "Say something : "
+        echo $REPLY | awk -F "( and )|( nd ) |( n )" '{
+        for(i=1;i<=NF;i++) system("./brain "$i)
+        }' 
    done;
 
 done

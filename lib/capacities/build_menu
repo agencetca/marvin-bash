@@ -16,16 +16,8 @@ shift
 shift
 
 prompt="$MSG "
-abort="abort"
-options=( "$@" "$abort" )
+options=( "$@" "abort" )
 
-#capacities.speak "Possible choices, are:"
-#for var in "$@"
-#do
-#    capacities.speak "$var"
-#done
-#capacities.speak "I can also, $abort"
- 
  PS3="$(capacities.tell "$prompt") "
  select opt in "${options[@]}" ; do
 

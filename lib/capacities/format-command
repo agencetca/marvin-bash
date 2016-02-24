@@ -11,14 +11,19 @@ function capacities.format-command {
     DOTTED="$(echo $PRE | sed -e 's#\s#.#g')"
     CMD="$(capacities.format-text $DOTTED)"
 
-    if [ -z "$(echo $CMD | grep -P '^capacities\.')" ]; then
+    if [ -z "$(echo $CMD | grep -P '^capacities|tools\.')" ]; then
         CMD="api.$CMD"
     fi
 
-    if [ -z "$ARGS" ]; then
-        echo "$CMD"
+    if [ "$CMD" == "api." ]; then
+        exit
     else
-        echo "$CMD $ARGS"
+        if [ -z "$ARGS" ]; then
+             echo "$CMD"
+        else
+            echo "$CMD $ARGS"
+        fi
     fi
+
 
 }

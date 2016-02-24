@@ -26,8 +26,7 @@ function $CMDTYPE.$CMDNAME {\n
 }" >> ../lib/$CMDTYPE/$CMDNAME
 
         $EDITOR ../lib/$CMDTYPE/$CMDNAME
-        capacities.tell "Let me a minute, I am saving the new command in my database"
-        capacities.tell "This could take some time. Have a break."
+        capacities.tell "Give me a second, I am saving the new command in my database"
         capacities.set_info "commands.$CMDTYPE.$CMDNAME" "$CMDTYPE.$CMDNAME"
         capacities.OK "We are good. Type $CMDNAME and lets see what is happening..."
 

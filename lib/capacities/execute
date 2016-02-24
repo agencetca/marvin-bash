@@ -10,7 +10,7 @@ function capacities.execute {
         PAYLOAD=$(echo $COMMAND | awk '{print $1}')
         ARGS="${COMMAND:${#PAYLOAD}+1}"
 
-        echo "Ready to execute : $PAYLOAD $ARGS"
+        capacities.indic "Command to execute : $PAYLOAD $ARGS"
 
         if [ ! -z $(declare -F "$PAYLOAD" ) ]; then
             $PAYLOAD "$ARGS"

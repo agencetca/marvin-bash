@@ -1,5 +1,5 @@
 
-function api.learn.new.command {
+function api.link.command.to.functionality {
 
     if [[ "$(capacities.get_info commands.$COMMAND)" -eq -1 ]]
     then

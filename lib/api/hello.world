@@ -1,0 +1,14 @@
+
+function api.hello.world {
+
+
+
+
+    capacities.tell "Hello World!"
+
+
+
+
+
+
+}

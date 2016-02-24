@@ -6,7 +6,7 @@ function tools.docker.build {
 
    if [ -z "$APPREPO" ] || [ -z "$APPNAME" ]; then
        capacities.tell "Need 2 args : APPREPO && APPNAME"
-       break
+       exit
    fi
 
    tools.docker.install

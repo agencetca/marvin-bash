@@ -1,6 +1,11 @@
 
 function capacities.function_exists {
 
+    if [ -z "$@" ]; then
+        echo false
+        exit
+    fi
+
     FUNC="$(capacities.format-command $@)"
     if [ ! -z "$(declare -F $FUNC)" ]; then
         echo true
