@@ -5,7 +5,7 @@
          if [ -f $f ]; then
             BASENAME=$(basename $f)
             DIRNAME=$(basename $(dirname $f))
-            FULLNAME=$DIRNAME.$BASENAME
+            FULLNAME="$DIRNAME.$BASENAME"
             PACK="$(echo $FULLNAME | sed 's#$KEY.##') $PACK"
          elif [ -d $f ]; then
             capacities.agregate $f false

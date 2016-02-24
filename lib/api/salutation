@@ -1,6 +1,6 @@
 
 function api.salutation {
 
-    echo "hello dude"
+    capacities.tell "hello dude"
 
 }

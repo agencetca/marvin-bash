@@ -1,0 +1,8 @@
+
+function capacities.list-capacities {
+    
+    capacities.tell "Capacities List!"
+    LIST=$(capacities.agregate ../lib/capacities)
+    capacities.build_menu "$1" "$2" $LIST
+    
+}

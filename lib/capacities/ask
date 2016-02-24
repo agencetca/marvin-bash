@@ -1,5 +1,4 @@
  function capacities.ask {
-     if [ -z $AUTOMODE ]; then
          DONE=false
          if [ ! -z "$2" ]; then
              OPT=" -i $2"
@@ -7,24 +6,10 @@
              OPT=""
          fi
          until $DONE; do
- 
-         read -r -e -p "$1 " REPLY < /dev/tty
+         capacities.tell "$1"
+         read -r -e -p "" REPLY < /dev/tty
          if [ ! -z "$REPLY" ]; then
              DONE=true
          fi
          done
-     else
-         if [ -z "$2" ]; then
-             tell "The question below cant be answered : "
-             tell "$1"
-             exit 1;
-         fi
- 
-         if [ "$2" == "0" ]; then
-             REPLY="no"
-         else
-             REPLY=$2
-         fi
- 
-     fi
  }

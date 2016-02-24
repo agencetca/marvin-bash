@@ -7,24 +7,33 @@ shift
 shift
 
 prompt="$MSG "
- options=( "$@" )
+abort="abort"
+options=( "$@" "$abort" )
+
+capacities.speak "Possible choices, are:"
+for var in "$@"
+do
+    capacities.speak "$var"
+done
+capacities.speak "I can also, $abort"
  
- PS3="$prompt "
- select opt in "${options[@]}" "abort" ; do
-     if (( REPLY == 1 + ${#options[@]} )) ; then
+ PS3="$(capacities.tell "$prompt") "
+ select opt in "${options[@]}" ; do
+
+    capacities.speak "$(echo $opt)"
+
+     if [ "$REPLY" == "$abort" ] ; then
          break
  
-     elif (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
-        $CBK "$opt"
-        #if [ ! -z "$CBK" ]; then
-        #    $CBK "$opt"
-        #else
-        #    capacities.sorry "I do not know yet how to use this functionnality..."
-        #fi
-        break
- 
+     #elif (( REPLY > 0 && REPLY < ${#options[@]} )) ; then
      else
-         echo "Invalid option. Try another one."
+
+        if [ "$(capacities.function_exists $CBK)" == "true" ]; then
+            $CBK "$opt"
+        else
+            capacities.sorry "the function $CBK does not seem to exist..."
+        fi
+        break
      fi
  done
     

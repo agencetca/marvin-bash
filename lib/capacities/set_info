@@ -1,6 +1,7 @@
 
 function capacities.set_info {
 
+    capacities.tell "I'm adding entry $2 with key $1"
     ./redis-bash/redis-bash-cli -h localhost SET "$1" "$2" >/dev/null
 
 }

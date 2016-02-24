@@ -1,8 +1,8 @@
 
 function capacities.list-api {
     
-    capacities.tell "Yep! I can help!"
+    capacities.tell "API List!"
     LIST=$(capacities.agregate ../lib/api)
-    capacities.build_menu "capacities.execute" "Choose something to do:" $LIST
+    capacities.build_menu "$1" "$2" $LIST
     
 }

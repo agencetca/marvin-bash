@@ -1,0 +1,7 @@
+
+function capacities.speak {
+
+    MSG="$@"
+    #espeak -v en-us -s 140 -p 50 "$(echo $MSG | sed 's#\[.*\]##g')"
+
+}

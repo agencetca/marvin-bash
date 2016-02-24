@@ -1,7 +1,8 @@
 
 function capacities.function_exists {
-    
-    if [ ! -z $(declare -F "api.$1" ) ]; then
+
+    FUNC="$(capacities.format-command $@)"
+    if [ ! -z "$(declare -F $FUNC)" ]; then
         echo true
     else
         echo false

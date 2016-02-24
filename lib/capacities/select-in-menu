@@ -1,11 +1,14 @@
 
-function capacities.execute {
+function capacities.select-in-menu {
     
         COMMAND="$(capacities.format-command $@)"
         PAYLOAD=$(echo $COMMAND | awk '{print $1}')
 
         if [ ! -z $(declare -F "$PAYLOAD" ) ]; then
-            $COMMAND
+            SELECTION="$PAYLOAD"
+        else
+            capacities.tell "Exit"
+            exit
         fi
     
 }

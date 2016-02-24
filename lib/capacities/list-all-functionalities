@@ -1,0 +1,8 @@
+
+function capacities.list-all-functionalities {
+    
+    capacities.tell "Functionalities List:"
+    LIST="$(capacities.agregate ../lib/api) $(capacities.agregate ../lib/capacities)"
+    capacities.build_menu "$1" "$1" $LIST
+    
+}

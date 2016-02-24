@@ -1,0 +1,9 @@
+
+function capacities.format-text {
+
+    UNSPKa="$(echo $@ | sed -e 's#\[##g')"
+    UNSPKb="$(echo $UNSPKa | sed -e 's#\]##g')"
+
+    echo "$UNSPKb"
+
+}

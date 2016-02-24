@@ -1,0 +1,24 @@
+
+function capacities.format-command {
+
+    ARGS="$(echo $@ | grep -i -o -E '\[.*\]')"
+    ARGS="$(echo $ARGS | sed 's#\[##g')"
+    ARGS="$(echo $ARGS | sed 's#\]##g')"
+
+    BASE="$(echo $@ | sed -e 's#\[.*\]##g')"
+    PRE="$(echo $BASE | sed -e 's#^api\.##g')"
+
+    DOTTED="$(echo $PRE | sed -e 's#\s#.#g')"
+    CMD="$(capacities.format-text $DOTTED)"
+
+    if [ -z "$(echo $CMD | grep -P '^capacities\.')" ]; then
+        CMD="api.$CMD"
+    fi
+
+    if [ -z "$ARGS" ]; then
+        echo "$CMD"
+    else
+        echo "$CMD $ARGS"
+    fi
+
+}
