@@ -7,7 +7,7 @@ COMMAND="$(capacities.format-command $RAW)"
 if [ "$(capacities.function_exists $COMMAND)" == "true" ]
 then
     capacities.execute "$COMMAND"
-elif [[ ! "$(capacities.get_info commands.$COMMAND)" -eq -1 ]]
+elif [[ ! "$(capacities.get_info commands.$COMMAND)" -eq -1 ]] 2>/dev/null
 then
     capacities.execute $(capacities.get_info "commands.$COMMAND")
 else
