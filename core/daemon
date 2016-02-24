@@ -23,11 +23,18 @@ do
    else
         capacities.tell "Hello, I'm Marvine, what could I do for you?"
    fi
- 
-   while true; do read -p "Say something : "
-        echo $REPLY | awk -F "( and )|( nd ) |( n )" '{
-        for(i=1;i<=NF;i++) system("./brain "$i)
-        }' 
-   done;
+
+   while true; do read -p "Say something : " REPLY
+        NUMREQ=$(echo $REPLY | awk -F "( and )|( nd ) |( n )" '{ print NF }')  
+        if [[ "NUMREQ" -eq 0 ]] || [[ "NUMREQ" -eq 1 ]]; then
+            ./brain $REPLY
+        elif [[ "NUMREQ" -gt 1 ]]; then
+            for (( c=1; c<=$NUMREQ; c++ ))
+            do
+                CMD=$(echo "$REPLY" | awk -F "( and )|( nd ) |( n )" '{ print $'$c' }')
+                ./brain "$CMD"
+            done
+        fi
+   done
 
 done
