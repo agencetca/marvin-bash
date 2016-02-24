@@ -2,7 +2,16 @@
 function capacities.build_menu {
     
 CBK="$1"
-MSG="$2" || "Please select an item:"
+MSG="$2"
+
+if [ "$2" == "--auto" ]; then
+    MSG="Please select an item:"
+fi
+
+if [ "$3" == "--with-args" ]; then
+    WITHARGS="true"
+    shift
+fi
 shift
 shift
 
@@ -10,30 +19,39 @@ prompt="$MSG "
 abort="abort"
 options=( "$@" "$abort" )
 
-capacities.speak "Possible choices, are:"
-for var in "$@"
-do
-    capacities.speak "$var"
-done
-capacities.speak "I can also, $abort"
+#capacities.speak "Possible choices, are:"
+#for var in "$@"
+#do
+#    capacities.speak "$var"
+#done
+#capacities.speak "I can also, $abort"
  
  PS3="$(capacities.tell "$prompt") "
  select opt in "${options[@]}" ; do
 
     capacities.speak "$(echo $opt)"
 
-     if [ "$REPLY" == "$abort" ] ; then
+     if (( REPLY == ${#options[@]} )) ; then
          break
  
-     #elif (( REPLY > 0 && REPLY < ${#options[@]} )) ; then
-     else
+     elif (( REPLY > 0 && REPLY < ${#options[@]} )) ; then
+
+        if [ "$WITHARGS" == "true" ]; then
+            capacities.ask "Arguments:" 0 "A"
+        else
+            A=
+        fi
 
         if [ "$(capacities.function_exists $CBK)" == "true" ]; then
-            $CBK "$opt"
+            $CBK "$opt" "$A"
+        elif [ "$(capacities.function_exists $opt)" == "true" ]; then
+            capacities.execute "$opt" "$A"
         else
             capacities.sorry "the function $CBK does not seem to exist..."
         fi
+
         break
+
      fi
  done
     

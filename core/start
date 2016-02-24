@@ -1,6 +1,5 @@
 #!/bin/bash
 
-rm DAEMON-NAME.log  DAEMON-NAME.pid
-./daemon start
+./daemon
 
 

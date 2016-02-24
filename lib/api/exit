@@ -1,0 +1,12 @@
+
+function api.exit {
+
+
+
+
+    capacities.exit "Bye bye, $NAME"
+
+
+
+
+}

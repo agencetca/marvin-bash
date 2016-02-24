@@ -3,6 +3,6 @@ function capacities.list-api {
     
     capacities.tell "API List!"
     LIST=$(capacities.agregate ../lib/api)
-    capacities.build_menu "$1" "$2" $LIST
+    capacities.build_menu "$1" "--auto" "--with-args" $LIST
     
 }

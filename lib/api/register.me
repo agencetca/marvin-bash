@@ -1,0 +1,13 @@
+
+function api.register.me {
+
+    if [[ "$NAME" -eq -1 ]] >/dev/null
+    then
+        capacities.ask "Tell me your name :"
+        NAME="$REPLY"
+        capacities.set_info "user.name" "$NAME"
+        capacities.OK
+    else
+        capacities.tell "I already know you, $NAME"
+    fi
+}

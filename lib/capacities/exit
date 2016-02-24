@@ -1,0 +1,12 @@
+
+function capacities.exit {
+
+    if [ ! -z "$1" ]; then
+        capacities.tell "$1"
+    else
+        capacities.tell "Exit requested. Exiting now."
+    fi
+
+    ./stop
+
+}

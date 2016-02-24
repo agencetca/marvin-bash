@@ -2,33 +2,47 @@
 function capacities.understand {
 
 RAW="$1"
-COMMAND="$(capacities.format-command $RAW)"
+if [ -z "$RAW" ]; then
+    capacities.list-api
+    exit
+fi
 
-if [ "$(capacities.function_exists $COMMAND)" == "true" ]
+COMMAND="$(capacities.format-command $RAW)"
+PAYLOAD="$(echo $COMMAND | awk '{ print $1 }')"
+ARGS="${COMMAND:${#PAYLOAD}+1}"
+echo "RAW=$RAW"
+echo "COMMAND=$COMMAND"
+echo "PAYLOAD=$PAYLOAD"
+echo "ARGS=$ARGS"
+
+if [ "$(capacities.function_exists $PAYLOAD)" == "true" ]
 then
-    capacities.execute "$COMMAND"
-elif [[ ! "$(capacities.get_info commands.$COMMAND)" -eq -1 ]] 2>/dev/null
+    capacities.execute "$PAYLOAD" "$ARGS"
+elif [[ ! "$(capacities.get_info commands.$PAYLOAD)" -eq -1 ]] 2>/dev/null
 then
-    capacities.execute $(capacities.get_info "commands.$COMMAND")
+    capacities.execute $(capacities.get_info "commands.$PAYLOAD") "$ARGS"
 else
     #Search synonyme
-    WORDLIST=$(curl "http://words.bighugelabs.com/api/2/1b3b426137b65a70578bf3251d16d30a/$RAW/" 2>/dev/null | awk -F '|' '{print $3}')
-    echo "$WORDLIST" | while read -r KEY
+    WORDLIST=$(curl "http://words.bighugelabs.com/api/2/1b3b426137b65a70578bf3251d16d30a/$(echo $PAYLOAD | sed 's#api.##')/" 2>/dev/null | awk -F '|' '{print $3}')
+    echo "$WORDLIST" | while read -r K
     do 
+        KEY="$(capacities.format-command $K)"
+        echo "$KEY"
+
         if [ "$(capacities.function_exists $KEY)" == "true" ]
         then 
-            capacities.set_info "commands.$COMMAND" "$KEY"
+            capacities.set_info "commands.$PAYLOAD" "$KEY"
         fi
     done
 
-    if [[ ! "$(capacities.get_info commands.$COMMAND)" -eq -1 ]]
+    if [[ ! "$(capacities.get_info commands.$PAYLOAD)" -eq -1 ]] 2>/dev/null
     then
-        capacities.execute $(capacities.get_info "commands.$COMMAND")
+        capacities.execute $(capacities.get_info "commands.$PAYLOAD") $ARGS
     else
         capacities.tell "Sorry $NAME, I didn't get it..."
         capacities.yes_no "Would like to manually help to improve me?"
         if [ "$REPLY" == "yes" ]; then
-            capacities.build_menu "capacities.execute" "What should I do?" "learn new command [$(echo $COMMAND | sed 's#api.##')]" "link command to another"
+            capacities.build_menu "capacities.execute" "What should I do?" "learn new command [$(echo $PAYLOAD | sed 's#api.##')]" "link command to another"
         fi
     fi
 fi

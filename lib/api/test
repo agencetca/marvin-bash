@@ -1,0 +1,7 @@
+function api.test {
+
+
+    capacities.tell "I'm working great"
+
+        
+}

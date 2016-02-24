@@ -1,6 +1,9 @@
 
 function api.salutation {
 
-    capacities.tell "hello dude"
-
+    if [[ "$NAME" -eq -1 ]]; then
+        capacities.tell "hello dude"
+    else
+        capacities.tell "hello $NAME"
+    fi
 }

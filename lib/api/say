@@ -1,6 +1,6 @@
 
 function api.say {
 
-    capacities.tell "coucou"
+    capacities.tell "$@"
 
 }

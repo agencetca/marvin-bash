@@ -1,14 +1,15 @@
  function capacities.ask {
          DONE=false
-         if [ ! -z "$2" ]; then
-             OPT=" -i $2"
-         else
-             OPT=""
-         fi
          until $DONE; do
          capacities.tell "$1"
-         read -r -e -p "" REPLY < /dev/tty
+         if [ ! -z "$3" ]; then
+            read -r -e -p "" $3 < /dev/tty
+         else
+            read -r -e -p "" REPLY < /dev/tty
+         fi
          if [ ! -z "$REPLY" ]; then
+             DONE=true
+         elif [ "$2" == "0" ]; then
              DONE=true
          fi
          done
