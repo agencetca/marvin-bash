@@ -1,11 +1,13 @@
 
 function capacities.execute {
     
-        COMMAND="$@"
+        #COMMAND="$@"
 
-        if [ ! -z "$(echo $COMMAND | grep -P '\[.*|\]')" ]; then
-            COMMAND="$(capacities.format-command $@)"
-        fi
+        #if [ ! -z "$(echo $COMMAND | grep -P '\[.*|\]')" ]; then
+        #    COMMAND="$(capacities.format-command $@)"
+        #fi
+
+        COMMAND="$(capacities.format-command $@)"
 
         PAYLOAD=$(echo $COMMAND | awk '{print $1}')
         ARGS="${COMMAND:${#PAYLOAD}+1}"

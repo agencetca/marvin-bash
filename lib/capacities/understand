@@ -17,10 +17,10 @@ ARGS="${COMMAND:${#PAYLOAD}+1}"
 
 if [ "$(capacities.function_exists $PAYLOAD)" == "true" ]
 then
-    capacities.execute "$PAYLOAD" "$ARGS"
+    capacities.execute "--no-format" "$PAYLOAD" "$ARGS"
 elif [[ ! "$(capacities.get_info commands.$PAYLOAD)" -eq -1 ]] 2>/dev/null
 then
-    capacities.execute $(capacities.get_info "commands.$PAYLOAD") "$ARGS"
+    capacities.execute "--no-format" $(capacities.get_info "commands.$PAYLOAD") "$ARGS"
 else
     #Search synonyme
     capacities.indic "Searching online..."
@@ -40,7 +40,7 @@ else
 
     if [[ ! "$(capacities.get_info commands.$PAYLOAD)" -eq -1 ]] 2>/dev/null
     then
-        capacities.execute $(capacities.get_info "commands.$PAYLOAD") $ARGS
+        capacities.execute"--no-format" $(capacities.get_info "commands.$PAYLOAD") $ARGS
     else
         capacities.sorry "it's like I do not know such command [$PAYLOAD]..."
         capacities.yes_no "Would like to manually help to improve me?"

@@ -16,6 +16,6 @@ function tools.docker.build {
    sudo bash -c "echo 'FROM docker/whalesay:latest' > Dockerfile"
    sudo bash -c "echo 'RUN apt-get -y update && apt-get install -y fortunes' >> Dockerfile"
    sudo bash -c "echo 'CMD /usr/games/fortune -a | cowsay' >> Dockerfile"
-   docker build -t "docker-$APPNAME" .
+   sudo docker build -t "docker-$APPNAME" .
 }
 

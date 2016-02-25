@@ -23,10 +23,10 @@ options=( "$@" "abort" )
 
     capacities.speak "$(echo $opt)"
 
-     if (( REPLY == ${#options[@]} )) ; then
+     if (( REPLY == ${#options[@]} )) 2>/dev/null ; then
          break
  
-     elif (( REPLY > 0 && REPLY < ${#options[@]} )) ; then
+     elif (( REPLY > 0 && REPLY < ${#options[@]} )) 2>/dev/null ; then
 
         if [ "$WITHARGS" == "true" ]; then
             capacities.ask "Arguments:" 0 "A"
@@ -45,6 +45,6 @@ options=( "$@" "abort" )
         break
 
      fi
- done
+ done 
     
 }

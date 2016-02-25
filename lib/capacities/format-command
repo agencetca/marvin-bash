@@ -1,6 +1,11 @@
 
 function capacities.format-command {
 
+  if [ "$1" == "--no-format" ]; then
+    shift
+    echo "$@"
+    exit
+  else
     ARGS="$(echo $@ | grep -i -o -E '\[.*\]')"
     ARGS="$(echo $ARGS | sed 's#\[##g')"
     ARGS="$(echo $ARGS | sed 's#\]##g')"
@@ -24,6 +29,7 @@ function capacities.format-command {
             echo "$CMD $ARGS"
         fi
     fi
+  fi
 
 
 }

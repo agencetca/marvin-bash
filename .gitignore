@@ -3,4 +3,5 @@ core/brain
 core/redis-bash
 core/docker
 core/marvin.pid
+apps
 marvin
