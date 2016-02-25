@@ -1,0 +1,20 @@
+
+function capacities.create.a.website {
+
+    capacities.tell "Starting the nginx creation script"
+    REPO="$(readlink -f ../web)"
+
+    cd ../lib/tools/nginx
+
+    HOSTNAME="$1"
+    SECURE="$2"
+    FSECURE="$3"
+    PHP="$4"
+    INDEX="$5"
+
+    #NAME SRC USER  UNSECUREPORT SECUREPORT FORCESSL PHP INDEXFILE
+    sudo ./create_nginx_service.sh -a "$HOSTNAME.io" "$REPO/$HOSTNAME.io" "$(whoami)" "$SECURE" "80" "443" "$FSECURE" "$PHP" "$INDEX"
+    capacities.tell "I'm done with that"
+
+
+}

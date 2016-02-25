@@ -1,0 +1,6 @@
+
+function capacities.redis.del_info {
+    
+     ../lib/tools/redis-bash/redis-bash-cli -h localhost DEL "$1"
+    
+}

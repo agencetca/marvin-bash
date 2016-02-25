@@ -1,0 +1,35 @@
+
+function capacities.test.internet {
+	
+	capacities.tell "Internet checking..."
+
+	INTERNET="0"
+	until [[ "$INTERNET" -gt "0" ]]; do
+		capacities.tell "Don't close this script. Check your connexion. I am waiting for your internet gateway." "line"
+		INTERNET=$(ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null 2>&1 && echo gw_ok || echo error)
+		if [ "$INTERNET" == "gw_ok" ]; then
+			INTERNET=1
+		fi
+		sleep 1
+	done
+
+	capacities.tell "\nGateway ok"
+
+	until [[ $INTERNET -gt "1" ]]; do
+		capacities.tell "Don't close this script. Check your connexion. I am testing your internet access." "line"
+		INTERNET=$(wget -q --spider http://google.com
+		if [ $? -eq 0 ]; then
+			echo "ok"
+		else
+		        echo "error"
+		fi)
+		sleep 1
+		if [ "$INTERNET" == "ok" ]; then
+			INTERNET=2
+		fi
+	done
+
+	capacities.tell "\nSuccess : you are connected"
+	echo ""
+
+}

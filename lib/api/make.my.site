@@ -1,0 +1,33 @@
+
+function api.make.my.site {
+
+    capacities.ask "What is the name of your website : "
+    HOSTNAME="$REPLY"
+
+    capacities.yes_no "Should the connexions being encrypted with SSL?"
+    if [ "$REPLY" == "yes" ]; then
+        capacities.yes_no "Do you want run an unencrytped version as well?"
+        if [ "$REPLY" == "yes" ]; then
+            SECURE="both"
+            capacities.yes_no "Do you want to automatically redirect the insecure connexion to the secure one?"
+                FSECURE="$REPLY"
+        else
+            SECURE="sslsecure"
+        fi
+    else
+        SECURE="unsecure"
+    fi
+
+    if [ "$FSECURE" == "yes" ]; then
+        INDEX="index.php"
+    else
+        INDEX="index.html"
+    fi
+
+    capacities.yes_no "Will you use PHP?"
+    PHP="$REPLY"
+
+    capacities.create.a.website "$HOSTNAME" "$SECURE" "$FSECURE" "$PHP" "$INDEX"
+
+
+}

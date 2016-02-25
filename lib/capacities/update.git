@@ -1,0 +1,15 @@
+
+function capacities.update.git {
+
+
+
+    cd ../
+    git add .
+    git commit -m "Marvin said : I'm updating myself as requested"
+    git push
+    capacities.Ok "it's done"
+
+
+
+
+}

@@ -1,0 +1,14 @@
+
+function api.go.online {
+
+if [ ! -L /etc/nginx/sites-enabled/marvin-frontend.io.conf ]; then
+    if [ -f /etc/nginx/sites-available/marvin-frontend.io.conf ]; then
+        ln -s /etc/nginx/sites-enabled/marvin-frontend.io.conf /etc/nginx/sites-available/marvin-frontend.io.conf
+    else
+        capacities.create.a.website "marvin-frontend" "sslsecure" "no" "yes" "index.php"
+    fi
+else
+    PORT=$(cat /etc/nginx/sites-enabled/marvin-frontend.io.conf | grep "listen" | awk '{print $2}')
+    capacities.tell "I am already online. Connect to https://localhost:$PORT"
+fi
+}

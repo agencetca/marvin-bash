@@ -1,0 +1,9 @@
+
+function api.shell {
+
+
+	#xterm -hold -e ""
+	exec sh
+
+
+}

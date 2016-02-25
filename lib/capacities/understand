@@ -36,7 +36,7 @@ else
 
     if [[ ! "$(capacities.redis.get_info commands.$PAYLOAD)" -eq -1 ]] 2>/dev/null
     then
-        capacities.execute"--no-format" $(capacities.redis.get_info "commands.$PAYLOAD") $ARGS
+        capacities.execute "--no-format" $(capacities.redis.get_info "commands.$PAYLOAD") $ARGS
     else
         capacities.sorry "it's like I do not know such command [$PAYLOAD]..."
         capacities.yes_no "Would like to manually help to improve me?"
