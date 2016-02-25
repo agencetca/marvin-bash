@@ -25,13 +25,15 @@ do
    fi
 
    while true; do read -p "Say something : " REPLY
-        NUMREQ=$(echo $REPLY | awk -F "( and )|( nd ) |( n )" '{ print NF }')  
+       AWKPATTERN="( and )|( nd )|( n )|( 'n )|( 'nd )|( && )|( & )"
+        NUMREQ=$(echo $REPLY | awk -F "$AWKPATTERN" '{ print NF }')  
         if [[ "NUMREQ" -eq 0 ]] || [[ "NUMREQ" -eq 1 ]]; then
             ./brain $REPLY
         elif [[ "NUMREQ" -gt 1 ]]; then
             for (( c=1; c<=$NUMREQ; c++ ))
             do
-                CMD=$(echo "$REPLY" | awk -F "( and )|( nd ) |( n )" '{ print $'$c' }')
+                CMD=$(echo "$REPLY" | awk -F "$AWKPATTERN" '{ print $'$c' }')
+                #CMD=$(echo "$REPLY" | awk -F "( and )|( nd )|( n )" '{ print $'$c' }')
                 ./brain "$CMD"
             done
         fi

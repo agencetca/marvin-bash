@@ -1,7 +1,22 @@
 
 function capacities.set_info {
 
+    DBFLAG="true"
     capacities.tell "I'm adding entry $2 with key $1"
-    ./redis-bash/redis-bash-cli -h localhost SET "$1" "$2" >/dev/null
+
+    if [[ "$3" -eq 0 ]] 2>/dev/null
+    then
+        capacities.yes_no "Are you agree?" 
+        if [ "$REPLY" == "no" ]; then
+            DBFLAG="false"
+            capacities.tell "Operation cancelled"
+            exit
+        fi
+        
+    fi
+
+    if [ "$DBFLAG" == "true" ]; then
+        ./redis-bash/redis-bash-cli -h localhost SET "$1" "$2" >/dev/null
+    fi
 
 }

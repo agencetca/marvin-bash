@@ -33,7 +33,7 @@ else
 
             if [ "$(capacities.function_exists $KEY)" == "true" ]
             then 
-               capacities.set_info "commands.$PAYLOAD" "$KEY"
+               capacities.set_info "commands.$PAYLOAD" "$KEY" 0
             fi
         fi
     done
