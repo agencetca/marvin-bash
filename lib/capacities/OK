@@ -1,6 +1,6 @@
 
 function capacities.OK {
     
-    capacities.tell "Ok, $NAME" "$1"
+    capacities.tell "Ok, $NAME $@" 
     
 }
