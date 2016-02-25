@@ -1,7 +1,6 @@
-core/DAEMON*
 core/brain
-core/redis-bash
-core/docker
 core/marvin.pid
+lib/tools/redis-bash
+lib/tools/docker
 apps
 marvin

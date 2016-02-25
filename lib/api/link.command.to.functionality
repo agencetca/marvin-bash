@@ -1,7 +1,7 @@
 
 function api.link.command.to.functionality {
 
-    if [[ "$(capacities.get_info commands.$COMMAND)" -eq -1 ]]
+    if [[ "$(capacities.redis.get_info commands.$COMMAND)" -eq -1 ]]
     then
 
         capacities.tell "Ready to learn a new command!"
@@ -13,7 +13,7 @@ function api.link.command.to.functionality {
             capacities.yes_no "Do you want to select $SELECTION?"
         done
 
-        capacities.set_info "commands.$(capacities.format-command $CUSTOMCOMMAND)" "$SELECTION"
+        capacities.redis.set_info "commands.$(capacities.format-command $CUSTOMCOMMAND)" "$SELECTION"
         capacities.OK "I have added the new command"
     else
         capacities.sorry "Error $COMMAND : You try to add a command that already exist (this should not occur...)"

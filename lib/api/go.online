@@ -1,0 +1,13 @@
+
+function api.go.online {
+
+    bash -c "cd ../lib/tools/nginx && ./create_nginx_service.sh"
+
+
+
+
+
+
+
+
+}

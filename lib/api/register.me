@@ -5,7 +5,7 @@ function api.register.me {
     then
         capacities.ask "Tell me your name :"
         NAME="$REPLY"
-        capacities.set_info "user.name" "$NAME"
+        capacities.redis.set_info "user.name" "$NAME"
         capacities.OK
     else
         capacities.tell "I already know you, $NAME"

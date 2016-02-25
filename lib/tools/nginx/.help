@@ -1,0 +1,36 @@
+CREATE_NGINX_SERVICE.SH
+Author : guillaume.pierre@innov24.tca
+
+-a	automatic mode
+	variables :
+	MANDATORY (in the correct order) : 
+	-- fill with 0 when option is not suitable --
+		DOMAIN : string
+		FOLDER : path
+		USERNAME : string 
+		SECURITY : unsecure|sslsecure|both
+		UNSECURE_PORT : int
+		SSLSECURE_PORT : int
+		FORCESSL : yes|no
+		PHP : yes|no
+		
+		INDEX : string
+
+	OPTIONAL :
+		PASSWORD (if user doesn't exist) : string 
+
+	EXAMPLES:
+	./create_nginx_service -a app.org /home/titi/app12 titi
+	both 80 443 yes no index.html pass
+
+	./create_nginx_service -a app.com folder titi
+	sslsecure 0 9001 0 yes "index.php index.html" 
+
+	./create_nginx_service -a app.net ../folder toto
+	unsecure 8080 0 0 no 'main.py' password
+
+-t	todo
+
+-h	help
+
+LICENCE WTFPL

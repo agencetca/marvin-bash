@@ -1,0 +1,33 @@
+****TODO****
+
+Note : in this script, it still unclear if is it for websites or multpurpose services.
+I want a multipurpose services handler but I dont need one right now, so I cant get the time to work on it. 
+
+TODO :
+- is this service for web service?
+- do we have to put a hook on 80 and/or 443 to force redirection to this service?
+(meaning placing a 0.conf in nginx/site-enabled that proxy_pass the request to the service)
+example : 
+server {
+
+	listen 80;
+	...
+
+	location / {
+	    proxy_pass http://127.0.0.1:8181
+	}
+
+}
+
+- instead shall we put a sub-redirection like : 
+
+server {
+
+	listen 80;
+	...
+
+	location /my_service {
+	    proxy_pass http://127.0.0.1:8181
+	}
+
+}

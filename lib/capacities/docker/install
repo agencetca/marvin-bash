@@ -1,6 +1,6 @@
 
-function tools.docker.install {
-    if [ ! -d "docker" ]; then
+function capacities.docker.install {
+    if [ ! -d "../lib/tools/docker" ]; then
         sudo apt-get purge -y lxc-docker*
         sudo apt-get purge -y docker.io*
         sudo apt-get update
@@ -11,7 +11,7 @@ function tools.docker.install {
         sudo apt-get install -y docker-engine
         sudo service docker start
         docker run ubuntu /bin/echo 'Hello world'
-        mkdir docker
+        mkdir ../lib/tools/docker
     fi
 }
 

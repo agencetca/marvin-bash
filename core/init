@@ -7,9 +7,55 @@
 sudo apt-get install redis-server
 
 #get database bash client
-git clone https://github.com/caquino/redis-bash.git redis-bash
+git clone https://github.com/caquino/redis-bash.git ../lib/tools/redis-bash
 
-#make marvin
+#make marvin daemon
+echo '#!/bin/bash
+
+echo $$ > marvin.pid
+while [ true ]
+do
+   function traverse {
+     for f in $1/*
+     do
+         if [ -f $f ]; then
+             source $f
+         elif [ -d $f ]; then
+             traverse $f
+         fi
+     done
+   }
+ 
+   CAP="../lib/capacities"
+   API="../lib/api"
+   traverse $CAP
+   traverse $API
+ 
+   NAME="$(capacities.redis.get_info user.name)"
+   if [[ ! "$NAME" -eq -1 ]]; then
+        capacities.tell "Hello $NAME, what could I do for you?"
+   else
+        capacities.tell "Hello, I am Marvine, what could I do for you?"
+   fi
+
+   while true; do read -p "Say something : " REPLY
+       AWKPATTERN="( and )|( nd )|( n )|( && )|( & )"
+        NUMREQ=$(echo $REPLY | awk -F "$AWKPATTERN" "{ print NF }")  
+        if [[ "NUMREQ" -eq 0 ]] || [[ "NUMREQ" -eq 1 ]]; then
+            ./brain $REPLY
+        elif [[ "NUMREQ" -gt 1 ]]; then
+            for (( c=1; c<=$NUMREQ; c++ ))
+            do
+                CMD=$(echo "$REPLY" | awk -F "$AWKPATTERN" "{ print $"$c" }")
+                ./brain "$CMD"
+            done
+        fi
+   done
+
+done' > daemon
+chmod +x daemon
+
+#make marvin brain
 echo '#!/bin/bash
 
 function traverse {
@@ -23,17 +69,31 @@ function traverse {
    done
 }
 
-LIB="../lib"
-traverse $LIB
+CAP="../lib/capacities"
+API="../lib/api"
+traverse $CAP
+traverse $API
 
 COMMAND="$@"
-NAME=$(capacities.get_info "user.name")
+NAME=$(capacities.redis.get_info "user.name")
 
 capacities.understand "$COMMAND"
 
 ' > brain
 chmod +x brain
 
+#make the starter
+echo '#!/bin/bash
+./daemon' > start
+chmod +x start
+
+#make the stopper
+echo '#!/bin/bash
+kill -9 $(cat marvin.pid)
+rm -f marvin.pid' > stop
+chmod +x stop
+
+#make the starter link
 echo '#!/bin/bash
 cd core && ./start' > ../marvin
 chmod +x ../marvin

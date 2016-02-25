@@ -1,5 +1,5 @@
 
-function capacities.set_info {
+function capacities.redis.set_info {
 
     DBFLAG="true"
     capacities.tell "I'm adding entry $2 with key $1"
@@ -16,7 +16,7 @@ function capacities.set_info {
     fi
 
     if [ "$DBFLAG" == "true" ]; then
-        ./redis-bash/redis-bash-cli -h localhost SET "$1" "$2" >/dev/null
+        ../lib/tools/redis-bash/redis-bash-cli -h localhost SET "$1" "$2" >/dev/null
     fi
 
 }

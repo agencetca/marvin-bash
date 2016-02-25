@@ -1,0 +1,6 @@
+
+function capacities.redis.get_info {
+    
+     ../lib/tools/redis-bash/redis-bash-cli -h localhost GET "$1"
+    
+}

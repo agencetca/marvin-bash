@@ -27,7 +27,7 @@ function $CMDTYPE.$CMDNAME {\n
 
         $EDITOR ../lib/$CMDTYPE/$CMDNAME
         capacities.tell "Give me a second, I am saving the new command in my database"
-        capacities.set_info "commands.$CMDTYPE.$CMDNAME" "$CMDTYPE.$CMDNAME"
+        capacities.redis.set_info "commands.$CMDTYPE.$CMDNAME" "$CMDTYPE.$CMDNAME"
         capacities.OK "We are good. Type $CMDNAME and lets see what is happening..."
 
     else

@@ -1,0 +1,17 @@
+server {
+
+	#SERVER_NAME;
+	#ROOT;
+	#PORT;
+	#INDEX;
+
+	#ACCESS_LOGS;
+	#ERROR_LOGS;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+	#PHP;
+
+}

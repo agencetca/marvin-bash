@@ -18,9 +18,9 @@ ARGS="${COMMAND:${#PAYLOAD}+1}"
 if [ "$(capacities.function_exists $PAYLOAD)" == "true" ]
 then
     capacities.execute "--no-format" "$PAYLOAD" "$ARGS"
-elif [[ ! "$(capacities.get_info commands.$PAYLOAD)" -eq -1 ]] 2>/dev/null
+elif [[ ! "$(capacities.redis.get_info commands.$PAYLOAD)" -eq -1 ]] 2>/dev/null
 then
-    capacities.execute "--no-format" $(capacities.get_info "commands.$PAYLOAD") "$ARGS"
+    capacities.execute "--no-format" $(capacities.redis.get_info "commands.$PAYLOAD") "$ARGS"
 else
     #Search synonyme
     capacities.indic "Searching online..."
@@ -33,14 +33,14 @@ else
 
             if [ "$(capacities.function_exists $KEY)" == "true" ]
             then 
-               capacities.set_info "commands.$PAYLOAD" "$KEY" 0
+               capacities.redis.set_info "commands.$PAYLOAD" "$KEY" 0
             fi
         fi
     done
 
-    if [[ ! "$(capacities.get_info commands.$PAYLOAD)" -eq -1 ]] 2>/dev/null
+    if [[ ! "$(capacities.redis.get_info commands.$PAYLOAD)" -eq -1 ]] 2>/dev/null
     then
-        capacities.execute"--no-format" $(capacities.get_info "commands.$PAYLOAD") $ARGS
+        capacities.execute"--no-format" $(capacities.redis.get_info "commands.$PAYLOAD") $ARGS
     else
         capacities.sorry "it's like I do not know such command [$PAYLOAD]..."
         capacities.yes_no "Would like to manually help to improve me?"

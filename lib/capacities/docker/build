@@ -1,5 +1,5 @@
 
-function tools.docker.build {
+function capacities.docker.build {
 
    APPREPO="$1"
    APPNAME="$2"
@@ -9,7 +9,7 @@ function tools.docker.build {
        exit
    fi
 
-   tools.docker.install
+   capacities.docker.install
    mkdir -p "$APPREPO/$APPNAME"
    cd "$APPREPO/$APPNAME"
    touch Dockerfile

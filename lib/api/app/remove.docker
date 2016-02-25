@@ -1,6 +1,6 @@
 
 function api.app.remove.docker {
     
-    tools.docker.uninstall
+    capacities.docker.uninstall
     
 }
