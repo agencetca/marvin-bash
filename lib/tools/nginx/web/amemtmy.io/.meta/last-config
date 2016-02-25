@@ -1,0 +1,29 @@
+
+server {
+
+	server_name www.amemtmy.io amemtmy.io;
+	root /home/manager/Projects/marvin/lib/tools/nginx/web/amemtmy.io;
+	listen 8005 ssl;
+	index index.html;
+
+	access_log /var/log/nginx/amemtmy.io.access.log;
+	error_log /var/log/nginx/amemtmy.io.error.log;
+	
+	ssl_certificate /etc/nginx/ssl/amemtmy.io/server.crt;
+	ssl_certificate_key /etc/nginx/ssl/amemtmy.io/server.key;
+	ssl_protocols	TLSv1 TLSv1.1 TLSv1.2;
+	ssl_ciphers	HIGH:!aNULL:!MD5;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+	location ~ \.php$ {
+	    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	    fastcgi_pass unix:/var/run/php5-fpm.sock;
+	    fastcgi_index index.php;
+	    include fastcgi_params;
+	    include fastcgi.conf;
+	}
+
+}

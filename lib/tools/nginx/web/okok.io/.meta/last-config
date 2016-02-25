@@ -1,0 +1,17 @@
+
+server {
+
+	server_name www.okok.io okok.io;
+	root /home/manager/Projects/marvin/lib/tools/nginx/web/okok.io;
+	listen 8002;
+	index index.html;
+
+	access_log /var/log/nginx/okok.io.access.log;
+	error_log /var/log/nginx/okok.io.error.log;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+
+}

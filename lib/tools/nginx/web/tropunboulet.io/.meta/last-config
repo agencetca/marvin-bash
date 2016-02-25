@@ -1,0 +1,45 @@
+
+server {
+
+	server_name www.tropunboulet.io tropunboulet.io;
+	return 301 https://localhost:8008$request_uri;
+	listen 8007;
+
+	#ACCESS_LOGS;
+	#ERROR_LOGS;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+
+}
+
+server {
+
+	server_name www.tropunboulet.io tropunboulet.io;
+	root /home/manager/Projects/marvin/lib/tools/nginx/web/tropunboulet.io;
+	listen 8008 ssl;
+	index index.php index.html;
+
+	access_log /var/log/nginx/tropunboulet.io.access.log;
+	error_log /var/log/nginx/tropunboulet.io.error.log;
+	
+	ssl_certificate /etc/nginx/ssl/tropunboulet.io/server.crt;
+	ssl_certificate_key /etc/nginx/ssl/tropunboulet.io/server.key;
+	ssl_protocols	TLSv1 TLSv1.1 TLSv1.2;
+	ssl_ciphers	HIGH:!aNULL:!MD5;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+	location ~ \.php$ {
+	    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	    fastcgi_pass unix:/var/run/php5-fpm.sock;
+	    fastcgi_index index.php;
+	    include fastcgi_params;
+	    include fastcgi.conf;
+	}
+
+}

@@ -1,0 +1,53 @@
+
+server {
+
+	server_name www.secureok.io secureok.io;
+	root /home/manager/Projects/marvin/lib/tools/nginx/web/secureok.io;
+	listen 8004;
+	index index.html;
+
+	access_log /var/log/nginx/secureok.io.access.log;
+	error_log /var/log/nginx/secureok.io.error.log;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+	location ~ \.php$ {
+	    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	    fastcgi_pass unix:/var/run/php5-fpm.sock;
+	    fastcgi_index index.php;
+	    include fastcgi_params;
+	    include fastcgi.conf;
+	}
+
+}
+
+server {
+
+	server_name www.secureok.io secureok.io;
+	root /home/manager/Projects/marvin/lib/tools/nginx/web/secureok.io;
+	listen 443 ssl;
+	index index.html;
+
+	access_log /var/log/nginx/secureok.io.access.log;
+	error_log /var/log/nginx/secureok.io.error.log;
+	
+	ssl_certificate /etc/nginx/ssl/secureok.io/server.crt;
+	ssl_certificate_key /etc/nginx/ssl/secureok.io/server.key;
+	ssl_protocols	TLSv1 TLSv1.1 TLSv1.2;
+	ssl_ciphers	HIGH:!aNULL:!MD5;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+	location ~ \.php$ {
+	    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	    fastcgi_pass unix:/var/run/php5-fpm.sock;
+	    fastcgi_index index.php;
+	    include fastcgi_params;
+	    include fastcgi.conf;
+	}
+
+}

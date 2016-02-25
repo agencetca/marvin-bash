@@ -3,6 +3,13 @@ core/daemon
 core/start
 core/stop
 core/marvin.pid
-lib/tools/*
+lib/tools/autoconf
+lib/tools/autoconf-2.13
+lib/tools/bin
+lib/tools/jsawk
+lib/tools/redis-bash
+lib/tools/resty
+lib/tools/scripts
+lib/tools/SpiderMonkey
 apps
 marvin

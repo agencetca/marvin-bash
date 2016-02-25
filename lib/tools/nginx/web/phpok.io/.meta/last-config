@@ -1,0 +1,24 @@
+
+server {
+
+	server_name www.phpok.io phpok.io;
+	root /home/manager/Projects/marvin/lib/tools/nginx/web/phpok.io;
+	listen 8003;
+	index index.html;
+
+	access_log /var/log/nginx/phpok.io.access.log;
+	error_log /var/log/nginx/phpok.io.error.log;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+	location ~ \.php$ {
+	    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	    fastcgi_pass unix:/var/run/php5-fpm.sock;
+	    fastcgi_index index.php;
+	    include fastcgi_params;
+	    include fastcgi.conf;
+	}
+
+}

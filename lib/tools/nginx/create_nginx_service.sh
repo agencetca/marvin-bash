@@ -136,17 +136,19 @@ fi
 SERVER_NAME="www.$DOMAIN $DOMAIN"
 
 ask "Specify the directory where you want your files to be located (if the directory does not exist it will be created)" "$3"
-DATA_SRC=$(readlink -f "$REPLY")
+#DATA_SRC="$(readlink -f $REPLY)"
+DATA_SRC="$REPLY"
 until [ ! $(echo $DATA_SRC | grep -P "^/root") ]; do
 	tell "Directory can NOT be located in root directory."
 	ask "Specify the directory where your files are located (if you have no files yet, specify any repository you like)"
-	DATA_SRC=$(readlink -f "$REPLY")
+	DATA_SRC="$(readlink -f $REPLY)"
 done
 
 #Check directory src for new domain
+
 if [ ! -d "$DATA_SRC" ]; then
   tell "New directory -- Creating"
-  mkdir -p $DATA_SRC
+  mkdir -p "$DATA_SRC"
   # load the template index.html file
   tell "We are feeding the new directory with a temporary html page"
   cp $TEMPLATE_DIR/index.html.template $DATA_SRC/index.html
@@ -191,12 +193,27 @@ if [ "$SECURE" == 'unsecure' ] || [ "$SECURE" == 'both' ]; then
 	until [ -z "$PORT_IS_USED" ] && (([ "$REPLY" -lt "10001" ] && [ "$REPLY" -gt "7999" ]) || ([ "$REPLY" -eq 80 ] || [ "$REPLY" -eq "443" ])); do
 		
 		if [ ! -z $AUTOMODE ]; then
-			exit 1;
+            if [[ $REPLY -eq 80 ]]
+            then
+                REPLY=8000
+                tell "Port 80 isn't available, move on 8000"
+            elif [ "$REPLY" -lt "10001" ]
+            then
+                OLDPORT=$REPLY
+                REPLY=$((REPLY + 1))
+                tell "Port $OLDPORT isn't available, move on $REPLY"
+            else
+                tell "No ports at all is available on this host. Shutdown one service."
+                exit 1
+            fi
 		fi
 
-		tell "Sorry, but this port is unavailable on this host."
-		ask "Which port number should hold your unsecure service? (80, 443, [8000-10000])"
-		PORT_IS_USED=$(nmap localhost -p$REPLY 2>&1 | grep -P "open|QUITTING" )
+		if [ -z $AUTOMODE ]; then
+		    tell "Sorry, but this port is unavailable on this host."
+		    ask "Which port number should hold your unsecure service? (80, 443, [8000-10000])"
+        fi
+            LOCKEDP="$REPLY"
+		    PORT_IS_USED=$(nmap localhost -p$REPLY 2>&1 | grep -P "open|QUITTING" )
 	done
 	PORT="$REPLY"
 fi
@@ -207,12 +224,34 @@ if [ "$SECURE" == 'sslsecure' ] || [ "$SECURE" == 'both' ]; then
 	until [ -z "$PORT_IS_USED" ] && (([ "$REPLY" -lt "10001" ] && [ "$REPLY" -gt "7999" ]) || ([ "$REPLY" -eq 80 ] || [ "$REPLY" -eq "443" ])); do
 		
 		if [ ! -z $AUTOMODE ]; then
-			exit 1;
+            if [[ $REPLY -eq 443 ]]
+            then
+                REPLY=8000
+                tell "Port 443 isn't available, move on 8000"
+            fi
+
+            if [ "$REPLY" -lt "10001" ]
+            then
+                OLDPORT=$REPLY
+                REPLY=$((REPLY + 1))
+                tell "Port $OLDPORT isn't available, move on $REPLY"
+
+                if [ "$REPLY" == "$LOCKEDP" ];then 
+                    REPLY=$((REPLY + 1))
+                fi
+
+            else
+                tell "No ports at all is available on this host. Shutdown one service."
+                exit 1
+            fi
 		fi
 	
-		tell "Sorry, but this port is unavailable on this host."
-		ask "Which port number should hold your SSL Secure service? (80, 443, [8000-10000])"
-		PORT_IS_USED=$(nmap localhost -p$REPLY 2>&1 | grep -P "open|QUITTING" )
+		if [ -z $AUTOMODE ]; then
+		    tell "Sorry, but this port is unavailable on this host."
+		    ask "Which port number should hold your SSL Secure service? (80, 443, [8000-10000])"
+        fi
+        
+	    PORT_IS_USED=$(nmap localhost -p$REPLY 2>&1 | grep -P "open|QUITTING" )
 	done
 	SSLPORT="$REPLY"
 fi
@@ -320,7 +359,7 @@ tell "Configuring OpenSSL"
 	fi
 
 	if [ -L "$NGINX_SSLPATH/$DOMAIN" ]; then
-		if [ ! "$(readlink $NGINX_SSLPATH/$DOMAIN)" == $META/ssl ]; then
+		if [ ! "$(readlink -f $NGINX_SSLPATH/$DOMAIN)" == $META/ssl ]; then
 			tell "A link name has to be modified : $NGINX_SSLPATH/$DOMAIN-auto-modified-on-$(date +%s)"
 	    		mv $NGINX_SSLPATH/$DOMAIN $NGINX_SSLPATH/$DOMAIN-auto-modified-on-$(date +%s)
 		fi
@@ -338,8 +377,8 @@ fi
 
 tell "Applying permissions"
 CODE=750
-chown -R $USERNAME:$NGINX_USER $DATA_SRC
-chmod -R $CODE $DATA_SRC
+chown -R "$USERNAME:$NGINX_USER" "$DATA_SRC"
+chmod -R "$CODE" "$DATA_SRC"
 tell "Permissions for directory $DATA_SRC have been set to $USERNAME:$NGINX_USER with $CODE permissions"
 
 tell "Configuring system logs"
@@ -449,9 +488,17 @@ $NGINX -t
 if [ $? -eq 0 ];then
 
   tell "Nginx configuration file is correct"
-  tell "We are enabling $DOMAIN"
+
+  if [ ! -z "$PORT" ]; then
+    tell "We are enabling $DOMAIN:$PORT"
+  fi
+
+  if [ ! -z "$SSLPORT" ]; then
+      tell "We are enabling $DOMAIN:$SSLPORT"
+  fi
+
   if [[ -L "$NGINX_ENABLED_VHOSTS/$DOMAIN.conf" ]]; then 
-    if [ ! "$(readlink $NGINX_ENABLED_VHOSTS/$DOMAIN.conf)" == "$NGINX_ALL_VHOSTS/$DOMAIN.conf" ]; then
+    if [ ! "$(readlink -f $NGINX_ENABLED_VHOSTS/$DOMAIN.conf)" == "$NGINX_ALL_VHOSTS/$DOMAIN.conf" ]; then
       mv $NGINX_ENABLED_VHOSTS/$DOMAIN.conf $NGINX_ENABLED_VHOSTS/$DOMAIN-auto-modified-on-$(date +%s).conf
       # Create symlink
       ln -s $CONFIG $NGINX_ENABLED_VHOSTS/$DOMAIN.conf
@@ -470,11 +517,11 @@ tell "Service Nginx is restarted..."
 
 ACTIVE=$(ps ax | grep -v grep | grep nginx > /dev/null )
 until [ ! -z $ACTIVE ]; do
-	tell "Something goes wrong, probably a mistake in $DOMAIN.conf"
 
 	if [ ! -z $AUTOMODE ]; then
 		exit 1;
 	fi
+	tell "Something goes wrong, probably a mistake in $DOMAIN.conf"
 
 	ask "Do you want to review the file?"
 	if [ $REPLY == 'yes' ]; then
