@@ -1,0 +1,7 @@
+Thu Feb 25 05:06:00 CET 2016
+Title : Unable to link a new command to existing functionality when coming from list
+Summary : When I enter a new command, Marvin propose me to add a link from this command to an existing func, as expected. But when I am in the menu where Marvin list all functionalities so that I can choose, I can not link my new command to func that are in api/${folder}, whatever the folder is (docker, redis...)
+Details : The main problem comes from the fact that the menu list the in-folder functionalities whitout the necessary "api." prefix. There is something here that should be corrected.
+Author : A random dude 
+
+

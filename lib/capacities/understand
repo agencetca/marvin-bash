@@ -10,10 +10,6 @@ fi
 COMMAND="$(capacities.format-command $RAW)"
 PAYLOAD="$(echo $COMMAND | awk '{ print $1 }')"
 ARGS="${COMMAND:${#PAYLOAD}+1}"
-#echo "RAW=$RAW"
-#echo "COMMAND=$COMMAND"
-#echo "PAYLOAD=$PAYLOAD"
-#echo "ARGS=$ARGS"
 
 if [ "$(capacities.function_exists $PAYLOAD)" == "true" ]
 then

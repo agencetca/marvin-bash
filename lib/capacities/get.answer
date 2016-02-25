@@ -1,0 +1,6 @@
+
+function capacities.get.back {
+
+    echo "$@"
+
+}

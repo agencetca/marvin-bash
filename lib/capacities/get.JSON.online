@@ -1,0 +1,14 @@
+
+function capacities.get.JSON.online {
+
+        URL="$1"
+        JSONFI=$(echo "$URL" | awk -F "/" '{ print $NF }')
+        JSONRE=$( echo -n $URL | head -c $((${#URL}-${#JSONFI}-1)) ) 
+        
+        resty "$JSONRE" &>/dev/null
+        GET /$JSONFI
+
+
+
+
+}

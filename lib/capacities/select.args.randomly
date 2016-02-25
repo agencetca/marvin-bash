@@ -1,0 +1,10 @@
+
+function capacities.select.args.randomly {
+
+
+
+    NUM=$(( ( RANDOM % $# )  + 1 ))
+    echo ${!NUM}
+
+
+}

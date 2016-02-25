@@ -1,0 +1,9 @@
+
+function api.make.a.joke {
+
+    URL="http://api.icndb.com/jokes/random"
+    JOKE=$(capacities.get.JSON.online "$URL" | jsawk -n 'out(this.value.joke)')
+    capacities.tell "$JOKE" 
+    capacities.laugh
+
+}

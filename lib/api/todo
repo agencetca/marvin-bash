@@ -1,0 +1,29 @@
+
+function api.todo {
+
+    capacities.tell "Remember the milk!"
+
+    capacities.ask "Title:"
+    TODOTITLE="$REPLY"
+    capacities.ask "Summary:"
+    TODOSUM="$REPLY"
+    capacities.ask "Details:"
+    TODODETAIL="$REPLY"
+
+    if [ ! -z "$NAME" ] ; then
+        TODOAUTHOR="$NAME"
+    else
+        TODOAUTHOR="A random dude"
+    fi
+
+    echo "$(date)
+Title : $TODOTITLE
+Summary : $TODOSUM
+Details : $TODODETAIL
+Author : $TODOAUTHOR
+
+" >> ./todo
+
+    capacities.tell "Thank you, I will do that soon "
+
+}

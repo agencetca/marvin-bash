@@ -1,0 +1,22 @@
+
+function api.heads.or.tails {
+
+
+
+    capacities.build_menu "capacities.get.back" "What do you bet?" "heads" "tails" | { IFS= read -r BET; 
+        capacities.tell "And the result is..."
+        RESULT=$(capacities.select.args.randomly "heads" "tails")
+        capacities.tell "$RESULT"
+        if [ $BET == "$RESULT" ]; then
+            capacities.tell "you won!"
+        else
+            capacities.tell "you loose, looser."
+        fi
+    }
+
+
+
+
+
+
+}

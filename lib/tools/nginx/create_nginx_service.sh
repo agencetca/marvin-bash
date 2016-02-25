@@ -1,7 +1,5 @@
 #!/bin/bash
  
-function tools.create.nginx.service {
-
 TODO=.todo
 HELP=.help
 
@@ -552,5 +550,3 @@ tell "Operation has been logged in $META/$INFOFILE"
 tail --lines $COUNT $META/$INFOFILE
 
 exit 0;
-
-}

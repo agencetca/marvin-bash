@@ -2,12 +2,50 @@
 
  
 #get libraries
+#mkdir ../lib/tools/bin
+#mkdir ../lib/tools/scripts
    
 #get database
-sudo apt-get install redis-server
+#sudo apt-get install redis-server
 
 #get database bash client
-git clone https://github.com/caquino/redis-bash.git ../lib/tools/redis-bash
+#git clone https://github.com/caquino/redis-bash.git ../lib/tools/redis-bash
+
+#get resty
+#sudo apt-get install curl
+#curl -L http://github.com/micha/resty/raw/master/resty > ../lib/tools/resty
+#cp ../lib/tools/resty ../lib/tools/scripts
+
+#get spiderMonkey
+#ORIGIN=$(pwd)
+#mkdir ../lib/tools/autoconf
+#cd ../lib/tools/autoconf
+#wget http://ftp.gnu.org/gnu/autoconf/autoconf-2.13.tar.gz
+#gunzip autoconf-2.13.tar.gz
+#tar xf autoconf-2.13.tar
+#cd autoconf-2.13
+#./configure
+#make && 
+#cp autoconf ../../autoconf-2.13 
+#mkdir ../../SpiderMonkey
+#cd ../../SpiderMonkey
+#wget https://hg.mozilla.org/mozilla-central/archive/tip.tar.gz
+#gunzip tip.tar.gz
+#tar xf tip.tar
+#cd mozilla-central-*/js/src
+#cp ../../../../autoconf-2.13 .
+#./autoconf-2.13
+#mkdir build_OPT.OBJ
+#cd build_OPT.OBJ
+#../configure
+#make
+#cp dist/bin/js ../../../../../bin
+#cd $ORIGIN
+
+#get jsawk 
+#curl -L http://github.com/micha/jsawk/raw/master/jsawk > ../lib/tools/jsawk
+#chmod 755 ../lib/tools/jsawk
+#cp ../lib/tools/jsawk ../lib/tools/bin/jsawk
 
 #make marvin daemon
 echo '#!/bin/bash
@@ -28,8 +66,13 @@ do
  
    CAP="../lib/capacities"
    API="../lib/api"
+   TOOLSCRIPTS="../lib/tools/scripts"
+
    traverse $CAP
    traverse $API
+   traverse $TOOLSCRIPTS
+
+   export PATH=$(readlink -f "../lib/tools/bin"):$PATH
  
    NAME="$(capacities.redis.get_info user.name)"
    if [[ ! "$NAME" -eq -1 ]]; then
@@ -38,7 +81,7 @@ do
         capacities.tell "Hello, I am Marvine, what could I do for you?"
    fi
 
-   while true; do read -p "Say something : " REPLY
+   while true; do read -e -p "Say something : " REPLY
        AWKPATTERN="( and )|( nd )|( n )|( && )|( & )"
         NUMREQ=$(echo $REPLY | awk -F "$AWKPATTERN" "{ print NF }")  
         if [[ "NUMREQ" -eq 0 ]] || [[ "NUMREQ" -eq 1 ]]; then
@@ -69,10 +112,15 @@ function traverse {
    done
 }
 
-CAP="../lib/capacities"
-API="../lib/api"
-traverse $CAP
-traverse $API
+   CAP="../lib/capacities"
+   API="../lib/api"
+   TOOLSCRIPTS="../lib/tools/scripts"
+
+   traverse $CAP
+   traverse $API
+   traverse $TOOLSCRIPTS
+
+   export PATH=$(readlink -f "../lib/tools/bin"):$PATH
 
 COMMAND="$@"
 NAME=$(capacities.redis.get_info "user.name")

@@ -1,0 +1,7 @@
+Thu Feb 25 08:47:46 CET 2016
+Title : Move heads and tails in a game folder in api
+Summary : It implies to correct the bug that affects funcs in folders
+Details : See bugs, and also create api.play
+Author : guillaume
+
+

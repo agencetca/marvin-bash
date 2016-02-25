@@ -1,0 +1,29 @@
+
+function api.report.a.bug {
+
+    capacities.tell "Welcome to the Bug Reporter"
+
+    capacities.ask "Title:"
+    BUGTITLE="$REPLY"
+    capacities.ask "Summary:"
+    BUGSUM="$REPLY"
+    capacities.ask "Details:"
+    BUGDETAIL="$REPLY"
+
+    if [ ! -z "$NAME" ] ; then
+        BUGAUTHOR="$NAME"
+    else
+        BUGAUTHOR="A random dude"
+    fi
+
+    echo "$(date)
+Title : $BUGTITLE
+Summary : $BUGSUM
+Details : $BUGDETAIL
+Author : $BUGAUTHOR
+
+" >> ./bugs
+
+    capacities.tell "Thank you, I should work on that"
+
+}

@@ -3,7 +3,6 @@ core/daemon
 core/start
 core/stop
 core/marvin.pid
-lib/tools/redis-bash
-lib/tools/docker
+lib/tools/*
 apps
 marvin

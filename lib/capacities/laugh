@@ -1,0 +1,13 @@
+
+function capacities.laugh {
+
+
+
+    LAUGH=$(capacities.select.args.randomly "HA,HA,HA" "HO,HO,HO" "HE,HE,HE" "so funny, isn't it?")
+    capacities.tell "$LAUGH!"
+
+
+
+
+
+}

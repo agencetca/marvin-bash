@@ -15,7 +15,7 @@ function capacities.execute {
         capacities.indic "Command to execute : $PAYLOAD $ARGS"
 
         if [ ! -z $(declare -F "$PAYLOAD" ) ]; then
-            $PAYLOAD "$ARGS"
+            $PAYLOAD $ARGS
         fi
     
 }
