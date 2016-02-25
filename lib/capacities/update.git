@@ -7,7 +7,7 @@ function capacities.update.git {
     git add .
     git commit -m "Marvin said : I'm updating myself as requested"
     git push
-    capacities.Ok "it's done"
+    capacities.OK "it's done"
 
 
 
