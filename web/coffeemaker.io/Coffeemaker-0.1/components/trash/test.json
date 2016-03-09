@@ -1,0 +1,20 @@
+{
+	
+    "structure" : {
+                        
+         "element" : "loader",
+         "design" : "div"
+
+	},
+	
+	"design" : {
+                    
+		"div" : {
+                "background-color" : "purple",
+				"width" : "100px",
+				"height" : "100px"
+			}
+                    
+    }
+
+}

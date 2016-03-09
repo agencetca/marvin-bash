@@ -1,0 +1,24 @@
+
+server {
+
+	server_name www.phptest.io phptest.io;
+	root /home/manager/Projects/marvin/web/phptest.io;
+	listen 8000;
+	index index.html;
+
+	access_log /var/log/nginx/phptest.io.access.log;
+	error_log /var/log/nginx/phptest.io.error.log;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+	location ~ \.php$ {
+	    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+	    fastcgi_pass unix:/var/run/php5-fpm.sock;
+	    fastcgi_index index.php;
+	    include fastcgi_params;
+	    include fastcgi.conf;
+	}
+
+}

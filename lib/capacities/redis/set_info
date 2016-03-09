@@ -2,10 +2,10 @@
 function capacities.redis.set_info {
 
     DBFLAG="true"
-    capacities.tell "I'm adding entry $2 with key $1"
 
     if [[ "$3" -eq 0 ]] 2>/dev/null
     then
+        capacities.tell "I'm adding entry $2 with key $1"
         capacities.yes_no "Are you agree?" 
         if [ "$REPLY" == "no" ]; then
             DBFLAG="false"

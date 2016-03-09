@@ -7,8 +7,8 @@ function capacities.format-command {
     exit
   else
     ARGS="$(echo $@ | grep -i -o -E '\[.*\]')"
-    ARGS="$(echo $ARGS | sed 's#\[##g')"
-    ARGS="$(echo $ARGS | sed 's#\]##g')"
+    ARGS="$(echo $ARGS | sed 's#\[#"#g')"
+    ARGS="$(echo $ARGS | sed 's#\]#"#g')"
 
     BASE="$(echo $@ | sed -e 's#\[.*\]##g')"
     PRE="$(echo $BASE | sed -e 's#^api\.##g')"

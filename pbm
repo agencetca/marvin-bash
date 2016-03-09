@@ -1,0 +1,100 @@
+
+function api.remember {
+
+    CONFIG=
+    capacities.config "files.rememberhist"
+    HISTORY="$CONFIG"
+
+    LAST=$(capacities.redis.get_info "last_memory")
+
+
+function list {
+        if [[ ! "$LAST" -eq -1 ]] 2>/dev/null; then
+           capacities.tell "Here is my remember history list :"
+            cat "$HISTORY" 2>/dev/null
+            api.remember "--last"
+            #capacities.indic "$LAST"
+        else
+            capacities.sorry "i have nothing in memory"
+        fi
+}
+
+function erase {
+        capacities.redis.del_info "last_memory"
+        rm "$HISTORY"
+        capacities.OK
+}
+
+function last {
+        if [[ ! "$LAST" -eq -1 ]] 2>/dev/null; then
+            capacities.tell "The last thing you wanted me to remember was $LAST"
+        else
+            capacities.sorry "i have nothing in memory"
+        fi
+}
+
+function add {
+    shift
+        if [[ "$LAST" -eq -1 ]] 2>/dev/null; then
+            capacities.tell "It looks like this will be the first entry!"
+        fi
+        if [[ -z "$@" ]]; then
+            capacities.ask "What do you want me to remember? "
+            capacities.redis.set_info "last_memory" "$REPLY" 1
+        else
+            capacities.redis.set_info "last_memory" "$@"
+        fi
+        if [ ! -z "$HISTORY" ]; then
+            if [[ ! "$LAST" -eq -1 ]] 2>/dev/null; then
+                echo "$LAST" >> "$HISTORY"
+            fi
+        fi
+        capacities.OK "I have set this in memory. Don't erase my database."
+}
+
+function devnote {
+        capacities.tell "I now keep an history. Try remember --list" 
+}
+
+    for var in "$@"
+    do
+        fn=$(echo "$var")
+        type -t $fn
+    done
+    exit
+
+    for var in "$@"
+    do
+
+        case "$var" in
+
+            "add")
+                echo "a"
+                add
+            ;;
+            "\-\-list")
+                list
+            ;;
+            "\-\-last")
+                last
+            ;;
+            "\-\-erase")
+                erase
+            ;;
+            "\-\-devnote" | "--add")
+                devnote
+            ;;
+            *)
+                echo "nop"
+                #add "$@"
+                #devnote
+            ;;
+
+        esac
+
+
+    done
+
+
+
+}

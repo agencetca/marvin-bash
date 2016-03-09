@@ -1,0 +1,17 @@
+
+server {
+
+	server_name www.thbigtest.io thbigtest.io;
+	root /home/manager/Projects/marvin/web/ThBigTest.io;
+	listen 8003;
+	index index.html;
+
+	access_log /var/log/nginx/thbigtest.io.access.log;
+	error_log /var/log/nginx/thbigtest.io.error.log;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+
+}

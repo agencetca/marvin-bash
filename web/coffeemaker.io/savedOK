@@ -1,0 +1,96 @@
+Coffeemaker-0.1
+├── coffeemaker.js
+├── components
+│   ├── div.json
+│   ├── loader.json
+│   ├── test.json
+│   └── test.json~
+├── core
+│   ├── capacities
+│   │   ├── analyze.js
+│   │   ├── check.js
+│   │   ├── check.js~
+│   │   ├── compile.js
+│   │   ├── compile.js~
+│   │   ├── DOM
+│   │   │   ├── element
+│   │   │   │   ├── affect
+│   │   │   │   │   └── id
+│   │   │   │   │       └── random.js
+│   │   │   │   ├── create.js
+│   │   │   │   ├── create.js~
+│   │   │   │   ├── select.js
+│   │   │   │   └── select.js~
+│   │   │   ├── event
+│   │   │   │   ├── addListener.js
+│   │   │   │   └── delListener.js
+│   │   │   └── structure
+│   │   │       ├── appendElementTo.js
+│   │   │       └── Unsaved Document 1
+│   │   ├── exec.js
+│   │   ├── exec.js~
+│   │   ├── exec.js.old
+│   │   ├── load.js
+│   │   ├── load.js~
+│   │   ├── log.js
+│   │   ├── log.js.old
+│   │   ├── loop.js
+│   │   ├── loop.js~
+│   │   ├── number.js
+│   │   ├── stack.js
+│   │   ├── TODO
+│   │   │   ├── array.js
+│   │   │   ├── debug.js
+│   │   │   ├── download.js
+│   │   │   ├── exec.js
+│   │   │   ├── execute.js
+│   │   │   ├── string.js
+│   │   │   ├── test.js
+│   │   │   └── verify.js
+│   │   ├── toolchain
+│   │   │   ├── configure.js
+│   │   │   ├── configure.js~
+│   │   │   ├── inject.js
+│   │   │   ├── inject.js~
+│   │   │   ├── make.js
+│   │   │   └── make.js~
+│   │   ├── transmission
+│   │   │   └── ajax
+│   │   │       ├── get.js
+│   │   │       └── get.js~
+│   │   ├── UI
+│   │   │   └── loading.js
+│   │   ├── unix.js
+│   │   └── unix.js~
+│   ├── external
+│   │   ├── components
+│   │   └── lib
+│   ├── lists
+│   │   └── html
+│   └── operators
+│       ├── AND.js
+│       ├── FOR.js
+│       ├── IF.js
+│       ├── OR.js
+│       ├── SWITCH.js
+│       ├── WHILE.js
+│       └── XOR.js
+├── documentation
+│   ├── info.js
+│   └── tutorial.js
+├── images
+│   ├── loading2.gif
+│   ├── loading3.gif
+│   └── loading.gif
+├── methods
+│   ├── css.js
+│   └── message.js
+├── modules
+└── templates
+    ├── example1.json
+    ├── example1.json~
+    ├── example2.json
+    ├── example.json
+    └── example.json~
+
+25 directories, 68 files

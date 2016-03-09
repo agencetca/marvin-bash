@@ -1,0 +1,13 @@
+
+function api.stop {
+
+        
+        if [ ! -z "$@" ]; then
+            capacities.kill "$@" 
+        else
+            LAST=$(capacities.redis.get_info "process.run")
+            capacities.kill "$LAST" 
+        fi
+
+
+}

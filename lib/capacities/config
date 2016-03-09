@@ -1,0 +1,35 @@
+
+function capacities.config {
+
+        SCRIPT="scripts"
+        LIST="lists"
+        DEPFILE="depinstall"
+        REMHIST="rememberhist"
+
+        [ ! -d "$SCRIPT" ] && capacities.redis.set_info "config.folders.$SCRIPT" "$SCRIPT" && mkdir "$SCRIPT"
+        [ ! -d "$LIST" ] && capacities.redis.set_info "config.folders.$LIST" "$LIST" && mkdir "$LIST"
+
+        [ ! -f $SCRIPT/$DEPFILE ] && capacities.redis.set_info "config.files.$DEPFILE" "$DEPFILE" &&
+        if [ ! -f $SCRIPT/$DEPFILE ]; then
+            echo "#!/bin/bash" > $SCRIPT/$DEPFILE
+            echo "#Dependencies for Marvin - Run this script" >> $SCRIPT/$DEPFILE;
+            echo "" >> $SCRIPT/$DEPFILE;
+            chmod +x $SCRIPT/$DEPFILE
+        fi
+        [ ! -f "$LIST/$REMHIST" ] && capacities.redis.set_info "config.files.$REMHIST" "$REMHIST" &&
+        if [ ! -f "$LIST/$REMHIST" ]; then
+            echo "#!/bin/bash" > "$LIST/$REMHIST"
+            echo "#Dependencies for Marvin - Run this script" >> "$LIST/$REMHIST";
+            echo "" >> "$LIST/$REMHIST";
+            chmod +x "$LIST/$REMHIST"
+        fi
+
+    if [ ! -z "$1" ] && [ ! -z "$2" ]; then
+        capacities.redis.set_info "config.$1" "$2"
+    elif [ ! -z "$1" ]; then
+        CONFIG=$(capacities.redis.get_info "config.$1")
+    fi
+
+    
+
+}

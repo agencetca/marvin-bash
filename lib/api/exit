@@ -1,5 +1,5 @@
 
-function api.exit {
+function api.bye {
 
 
 

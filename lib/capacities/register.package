@@ -1,0 +1,28 @@
+
+function capacities.register.package {
+    
+    capacities.tell "Checking config, wait a sec'"
+    capacities.config "folders.scripts"
+    SCRIPT="$CONFIG"
+    capacities.config "files.depinstall"
+    DEPFILE="$CONFIG"
+
+    FLAG=0
+    for var in "$@"
+    do
+        if [ ! "$(cat "$SCRIPT/$DEPFILE" | grep "$var" )" ] ; then
+            FLAG=1
+            echo "apt-get install -y $var >/dev/null 2>&1" >> "$SCRIPT/$DEPFILE"
+        fi
+    done
+
+    capacities.OK
+
+    if [[ $FLAG -eq 1 ]]; then
+        capacities.tell "Package registering, wait a second."
+        cd $SCRIPT
+        sudo ./$DEPFILE
+    fi
+
+
+}

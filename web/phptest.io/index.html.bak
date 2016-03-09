@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>phptest.io</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="js/marvin.js"></script>
+    <script src="public/underscore/underscore.js"></script>
+  </head>
+  <body>
+    <h1>Welcome to phptest.io</h1>
+    <p><i>Place your files in /home/manager/Projects/marvin/web/phptest.io</i></p>
+  </body>
+</html>

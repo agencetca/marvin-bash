@@ -1,0 +1,17 @@
+
+server {
+
+	server_name www.thesuperwazaaawebsiteofthedeath.io thesuperwazaaawebsiteofthedeath.io;
+	root /home/manager/Projects/marvin/web/theSuperWazaaaWebsiteOfTheDeath.io;
+	listen 8002;
+	index index.html;
+
+	access_log /var/log/nginx/thesuperwazaaawebsiteofthedeath.io.access.log;
+	error_log /var/log/nginx/thesuperwazaaawebsiteofthedeath.io.error.log;
+	
+	location /.meta/ {
+	  return 404;
+	}
+	
+
+}

@@ -1,0 +1,8 @@
+{
+    "require": {
+	"adldap/adldap": "dev-master", 
+	"phpspec/php-diff": "1.0.2", 
+	"nette/robot-loader": "2.3.1",
+	"raveren/kint": "dev-master"
+    }
+}

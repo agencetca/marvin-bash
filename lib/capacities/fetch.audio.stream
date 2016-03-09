@@ -1,0 +1,21 @@
+
+function capacities.fetch.audio.stream {
+
+    capacities.register.package "mplayer"
+
+    if [ ! -z "$1" ]; then
+        STREAM="$1"
+    else
+        capacities.ask "What is the full URL of the feed you want to fetch?"
+        STREAM="$REPLY"
+    fi
+
+    capacities.kill "mplayer"
+    capacities.register.run "mplayer"
+    mplayer $STREAM >/dev/null 2>&1 &
+
+
+
+
+
+}

@@ -14,6 +14,17 @@ function capacities.create.a.website {
 
     #NAME SRC USER  UNSECUREPORT SECUREPORT FORCESSL PHP INDEXFILE
     sudo ./create_nginx_service.sh -a "$HOSTNAME.io" "$REPO/$HOSTNAME.io" "$(whoami)" "$SECURE" "80" "443" "$FSECURE" "$PHP" "$INDEX"
+
+
+    capacities.yes_no "Do you wish to start a coffeemaker project?"
+    if [ "$REPLY" == "yes" ]; then
+        capacities.tell "Good idea, coffee is healthy"
+        capacities.OK "I download and setup your platform"
+        cd "$REPO/$HOSTNAME.io" && rm * && git clone ssh://yousuckless.tk:/home/manager/Projects/coffeemaker.git
+        mv coffeemaker/index.html . 
+        mv coffeemaker Coffeemaker-0.1
+    fi
+
     capacities.tell "I'm done with that"
 
 

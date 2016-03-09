@@ -1,0 +1,4 @@
+#!/bin/bash
+#Dependencies for Marvin - Run this script
+
+apt-get install -y mplayer >/dev/null 2>&1

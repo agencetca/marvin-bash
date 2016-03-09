@@ -1,0 +1,56 @@
+{
+
+	"name" : "innov24",
+    "require" : ["message"],
+	
+	"structure" : {
+        "header" : {
+            "element" : "header",
+            "design" : "header"
+        },
+        "main" : {
+            "element" : "div",
+            "design" : "main",
+            "events" : {
+                "click" : {
+                    "test" : ["a","d"]
+                }
+            }
+        }
+
+    },
+	
+	"design" : {
+        "header" : {
+
+            "width" : "100%",
+            "min-height" : "100px",
+            "height" : "18%"
+
+        },
+        "main" : {
+            
+            "width" : "50%",
+            "height" : "80%",
+            "background-color" : "red"
+        }
+	},
+
+    "logic" : {
+        
+        "test" : { 
+            "message/console" : ["NOTE : THIS IS UNSUPPORTED, FOR NOW ALWAYS MAKE PACKAGE OF FUNC, like a, b, c, d and so on","stuff"],
+            "a" : {"css/affect" : ["background","blue"] },
+            "b" : {"css/affect" : ["two","background","yellow"] },
+            "c" : {"css/affect" : ["three","background","green"] },
+            "d" : {"message/console" : ["Marvin is so clever!"] }
+        },
+        "parole" : {
+            "exclamation" : {
+                "a" : {"message/console" : ["woooaw"]},
+                "b" : {"message/console" : ["I like it"]}
+            }
+        }
+    }
+
+}

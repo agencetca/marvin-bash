@@ -1,0 +1,2 @@
+#!/bin/bash
+scp -r manager@innov24:/etc/nginx .

@@ -1,0 +1,20 @@
+{
+	
+    "structure" : {
+                        
+         "element" : "system::div",
+         "design" : "div"
+
+	},
+	
+	"design" : {
+                    
+		"div" : {
+                "background-color" : "#F1F1F1",
+				"width" : "100px",
+				"height" : "100px"
+			}
+                    
+    }
+
+}

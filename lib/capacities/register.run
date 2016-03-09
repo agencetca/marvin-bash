@@ -1,0 +1,14 @@
+
+function capacities.register.run {
+
+
+
+
+    capacities.redis.set_info "process.run" "$1" "1"
+
+
+
+
+
+
+}

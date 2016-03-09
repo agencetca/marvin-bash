@@ -1,0 +1,107 @@
+Coffeemaker.core.capacities.exec = function() {
+	    
+	    this.subprocess = function (o,timeout) {
+	    
+	   	setTimeout(function(){
+	   	
+			   loop.array(o, function(a,b,c) {
+		
+					if (check.isObject(b) && check.isFunction(b.payload)) {
+			
+						var RETURN;
+				
+						try {
+					
+							RETURN = b.payload.apply('',b.args);
+					
+						} catch(e) {
+				
+							if (check.isFunction(b.error)) b.error();
+				
+						} finally {
+					
+						 	if (check.isObject(b.callback) 
+						 	&& check.isFunction(b.callback.payload)) {
+						 		if (check.isArray(b.callback.args)) {
+						 			b.callback.args.push(RETURN);
+						 		}
+						 		ex(b.callback);
+							}
+						}
+				
+			
+					}
+		
+		
+				});
+			
+			}, timeout);
+		
+		}
+
+
+		var load = Coffeemaker.core.capacities.load;
+	    var loop = load('core/capacities/loop');
+	    var check = load('core/capacities/check');
+	    var logs = load('core/capacities/log');
+	    var ex = load('core/capacities/exec');
+	    
+	    var timeout = 0;
+	    var counter = 0;
+	    try {
+	    
+	    loop.array(arguments, function(a,b,c) {
+	    	if (check.isObject(b)) {
+	    		loop.object.recursive(b, function(t,e,v){
+	    			if (t === 'payload') counter++;
+	    		});
+	    	}
+	    });
+	    
+	    loop.array(arguments, function(a,b,c) {
+	    	if (check.isObject(b)) {
+	    		loop.object.simple(b, function(t,e,v){
+	    			if (t === 'timeout') timeout=e;
+	    		});
+	    	}
+	    });
+
+		
+		if (check.isString(arguments[0])) {
+			packet=arguments[0];
+			logs.task.init(packet,0,counter);
+		}
+		
+		
+		//TODO MUST understand why, if i declare the variable packet, the behaviour of logs and the loadingBar is modified;
+		}catch(e) {} finally {
+			//alert(timeout);
+			if (timeout) timeout = 1000;
+			if(packet) logs.task.update(packet,counter)
+	    	this.subprocess(arguments,timeout);
+	    	
+	    
+	    }
+}
+
+//						var origin = b.payload;
+//						
+//						//value = b.payload.bind(this).apply('',b.args);
+//						
+//							//load('core/capacities/load');
+//							//setTimeout(function(){
+//							//var fn = new Function('test', origin);
+//								//origin.apply('',[fn]);
+//							//}, 2000);
+//							test = function() {
+//								var a = load;
+//								origin().apply('',[a])
+//							}
+//							
+//							test()
+
+//						loop.array(b.require,function(a,b) {
+//							if ( ! check.isArray(b.args)) b.args = [];
+//							var fn = new Function(b, 'return function (){load('+b+');}');
+//							b.args.push(fn);
+//						});

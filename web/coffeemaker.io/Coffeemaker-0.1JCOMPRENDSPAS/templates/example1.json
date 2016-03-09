@@ -1,0 +1,106 @@
+{
+
+	"name" : "example",
+	
+	"structure" : {
+        "button 1" : {
+            "element": "div",
+            "design": "container,test,element",
+            "message" : {
+                "element" : "div",
+                "design" : "message"
+            },
+            "button" : {
+                "element" : "button",
+                "id":"one",
+                "design" : "button",
+                "events" : {
+                    "click" : {
+                        "test" : ["*"],
+                        "parole/exclamation" : ["b","a"]
+                    }              
+                }
+            }
+        },
+
+        "button 2" : {
+            "element" : "test",
+            "id":"two",
+            "design" : "test",
+            "message" : {
+                "element" : "div",
+                "design" : "message"
+            },
+            "button" : {
+                "element" : "button",
+                "design" : "button"
+            }
+        },
+
+        "button 22" : {
+            "element" : "test",
+            "id":"twof",
+            "message" : {
+                "element" : "div",
+                "design" : "message"
+            },
+            "button" : {
+                "element" : "button",
+                "design" : "button"
+            }
+        },
+
+        "button 3" : {
+            "element" : "div",
+            "id":"three",
+            "design" : "container",
+            "message" : {
+                "element" : "div",
+                "design" : "message"
+            },
+            "button" : {
+                "element" : "button",
+                "design" : "button"
+            }
+        }
+    },
+	
+	"design" : {
+		"container" : {
+            "important" : {
+                "width" : "500px"
+            },
+            "height" : "200px",
+            "background-color" : "yellow"
+		},
+        "test" : {
+        },
+		"message" : {
+            "width" : "100%",
+            "height" : "30px",
+            "background-color" : "transparent"
+		},
+        "button" : {
+            "width" : "100%",
+            "height" : "170px"
+        }
+	},
+
+    "logic" : {
+        
+        "test" : { 
+            "console" : ["message/console","stuff"],
+            "a" : {"css/affect" : ["one","background","blue"] },
+            "b" : {"css/affect" : ["two","background","yellow"] },
+            "c" : {"css/affect" : ["three","background","green"] },
+            "d" : {"message/console" : ["Marvin is so clever!"] }
+        },
+        "parole" : {
+            "exclamation" : {
+                "a" : {"message/console" : ["woooaw"]},
+                "b" : {"message/console" : ["I like it"]}
+            }
+        }
+    }
+
+}

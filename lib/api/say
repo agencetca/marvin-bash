@@ -1,6 +1,7 @@
 
 function api.say {
 
-    capacities.tell "$@"
+    MSG="$@"
+    capacities.tell "$MSG"
 
 }
