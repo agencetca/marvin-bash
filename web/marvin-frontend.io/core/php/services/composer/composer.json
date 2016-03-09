@@ -1,8 +1,0 @@
-{
-    "require": {
-        "monolog/monolog": "1.0.*",
-	    "adldap/adldap": "dev-master",
-	    "phpspec/php-diff" : "1.0.2"
-    },
-    "minimum-stability": "dev"
-}
