@@ -11,5 +11,6 @@ lib/tools/redis-bash
 lib/tools/resty
 lib/tools/scripts
 lib/tools/SpiderMonkey
+web/*
 apps
 marvin
