@@ -5,15 +5,18 @@ mkdir ../lib/tools/bin
 mkdir ../lib/tools/scripts
 
 #get libraries
+
+#get audio
+sudo apt-get install -y espeak
    
 #get database
-sudo apt-get install redis-server
+sudo apt-get install -y redis-server
 
 #get database bash client
 git clone https://github.com/caquino/redis-bash.git ../lib/tools/redis-bash
 
 #get resty
-sudo apt-get install curl
+sudo apt-get -y install curl
 curl -L http://github.com/micha/resty/raw/master/resty > ../lib/tools/resty
 cp ../lib/tools/resty ../lib/tools/scripts
 
